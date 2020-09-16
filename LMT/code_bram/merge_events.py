@@ -1,0 +1,97 @@
+import sqlite3
+import time
+
+
+def main():
+    start = time.time()
+    results = connection()
+    animals = sort_split(results)
+    print(animals)
+    print('The length of the table = ' + str(len(results)))
+
+    i = 0
+    for animal in animals:
+
+        print('The length of the table from animal ' + str(i) + ' before merging = ' + str(len(animals[i])))
+        #print(animal)
+        try:
+            animals[i] = check_next_event(animal, 0)
+        except IndexError:
+            pass
+        #print(animal)
+        print('The length of the table from animal ' + str(i) + ' after merging= ' + str(len(animals[i])))
+        i += 1
+
+
+    end = time.time()
+    print('time elapsed: ' + str(end - start))
+
+
+def connection():
+    conn = sqlite3.connect('C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite')
+
+    cursor = conn.cursor()
+
+    cursor.execute("select * from event limit 10000")
+
+    results = cursor.fetchall()
+    results = [list(elem) for elem in results]
+    return results
+
+
+def sort_split(results):
+    animals = [[], [], [], []]
+
+    for line in results:
+        if line[5] == 1:
+            animals[0].append(line)
+        elif line[5] == 2:
+            animals[1].append(line)
+        elif line[5] == 3:
+            animals[2].append(line)
+        else:
+            animals[3].append(line)
+
+    animals[0] = sorted(animals[0], key=lambda x: (x[3]))
+    animals[1] = sorted(animals[1], key=lambda x: (x[3]))
+    animals[2] = sorted(animals[2], key=lambda x: (x[3]))
+    animals[3] = sorted(animals[3], key=lambda x: (x[3]))
+
+    return animals
+
+
+def check_next_event(results, i):
+    listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
+                          'RFID MATCH',
+                          'RFID MISMATCH'
+                          'MACHINE LEARNING ASSOCIATION',
+                          'Detection'
+                          'Head detected'
+                          ]
+    for row in results[i:]:
+        # print('Next event')
+        # print(len(results))
+        # print(results.index(row) + 1)
+        if results.index(row) + 1 == len(results):
+            raise IndexError
+
+        nextLine = results[results.index(row) + 1]
+
+        if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < 15 and row[
+            1] not in listExcludedEvents:
+            newResults = merge_events(results, nextLine)
+
+            check_next_event(newResults, newResults.index(row))
+
+    return results
+
+
+def merge_events(results, lineToRemove):
+    results[results.index(lineToRemove) - 1][4] = lineToRemove[4]
+    results.remove(lineToRemove)
+    # print('removed')
+    return results
+
+
+if __name__ == '__main__':
+    main()
