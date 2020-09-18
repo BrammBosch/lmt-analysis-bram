@@ -4,23 +4,25 @@ import time
 
 def main():
     start = time.time()
+
+    framesRemoved = 15
     results = connection()
     animals = sort_split(results)
-    print(animals)
     print('The length of the table = ' + str(len(results)))
+    results = None
+
 
     i = 0
     for animal in animals:
 
         print('The length of the table from animal ' + str(i) + ' before merging = ' + str(len(animals[i])))
-        #print(animal)
         try:
-            animals[i] = check_next_event(animal, 0)
+            animals[i] = check_next_event(animal, 0,framesRemoved)
         except IndexError:
             pass
-        #print(animal)
         print('The length of the table from animal ' + str(i) + ' after merging= ' + str(len(animals[i])))
         i += 1
+
 
 
     end = time.time()
@@ -32,7 +34,7 @@ def connection():
 
     cursor = conn.cursor()
 
-    cursor.execute("select * from event limit 10000")
+    cursor.execute("select * from event")
 
     results = cursor.fetchall()
     results = [list(elem) for elem in results]
@@ -60,7 +62,7 @@ def sort_split(results):
     return animals
 
 
-def check_next_event(results, i):
+def check_next_event(results, i, framesRemoved):
     listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
                           'RFID MATCH',
                           'RFID MISMATCH'
@@ -77,11 +79,11 @@ def check_next_event(results, i):
 
         nextLine = results[results.index(row) + 1]
 
-        if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < 15 and row[
+        if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < framesRemoved and row[
             1] not in listExcludedEvents:
             newResults = merge_events(results, nextLine)
 
-            check_next_event(newResults, newResults.index(row))
+            check_next_event(newResults, newResults.index(row),15)
 
     return results
 
