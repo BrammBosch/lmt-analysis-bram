@@ -1,37 +1,67 @@
 import sqlite3
 import time
+from multiprocessing import Process, Manager
+
+animalResults = []
 
 
-def main():
+def multiMain():
+    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'
     start = time.time()
 
-    framesRemoved = 15
-    results = connection()
+    results = connection(table)
     animals = sort_split(results)
     print('The length of the table = ' + str(len(results)))
     results = None
+    frames = 15
+    with Manager() as manager:
+        animalResults = manager.list()
 
-    animalResults = []
-    for animal in animals:
-        animalResults.append(check_events(animal))
-    i=0
+        processes = []
+        for animal in animals:
+            p = Process(target=check_events, args=(animalResults, animal,frames))
+            p.start()
+            processes.append(p)
+        for p in processes:
+            p.join()
+        animalResults = list(animalResults)
+
+    i = 0
     totalLen = 0
     for result in animalResults:
-
-        print('The length of result'+ str(i)+ '= ' + str(len(result)))
+        print('The length of result ' + str(i + 1) + '= ' + str(len(result)))
         totalLen += len(result)
         i += 1
     print('The total length = ' + str(totalLen))
+
+    replace_table(table, animalResults)
     end = time.time()
     print('time elapsed: ' + str(end - start))
 
 
-def connection():
-    conn = sqlite3.connect('C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite')
+def replace_table(table, animalResults):
+    conn = sqlite3.connect(table)
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM event')
+    # print(animalResults)
+    for animal in animalResults:
+        for row in animal:
+            # print(row)
+            sql = "INSERT INTO event VALUES (?,?,?,?,?,?,?,?,?)"
+            val = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+            # print(sql,val)
+            cursor.execute(sql, val)
+
+    conn.commit()
+
+
+def connection(table):
+    conn = sqlite3.connect(
+        "C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite")
 
     cursor = conn.cursor()
 
-    cursor.execute("select * from event")
+    cursor.execute("select * from event limit 10000")
 
     results = cursor.fetchall()
     results = [list(elem) for elem in results]
@@ -59,7 +89,7 @@ def sort_split(results):
     return animals
 
 
-def check_events(result):
+def check_events(L, result,frames):
     listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
                           'RFID MATCH',
                           'RFID MISMATCH',
@@ -75,14 +105,13 @@ def check_events(result):
 
             nextLine = result[result.index(row) + 1]
 
-
-
-            if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < 15 and row[1] not in listExcludedEvents:
-
+            if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < frames and row[
+                1] not in listExcludedEvents:
+                # print(str(row[0]) +' '+ row[1])
                 same = True
                 while same:
                     nextLine = result[result.index(row) + 1]
-                    if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < 15 and row[
+                    if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < frames and row[
                         1] not in listExcludedEvents:
                         result[result.index(nextLine) - 1][4] = nextLine[4]
 
@@ -90,12 +119,8 @@ def check_events(result):
                     else:
                         same = False
     except IndexError:
-        return result
-
-
-def merge_events(row, result):
-    same = True
+        L.append(result)
 
 
 if __name__ == '__main__':
-    main()
+    multiMain()
