@@ -53,8 +53,7 @@ def replace_table(table, animalResults):
 
 
 def connection(table):
-    conn = sqlite3.connect(
-        "C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite")
+    conn = sqlite3.connect(table)
 
     cursor = conn.cursor()
 
