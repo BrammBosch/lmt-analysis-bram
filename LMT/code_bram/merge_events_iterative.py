@@ -5,12 +5,12 @@ from multiprocessing import Process, Manager
 animalResults = []
 
 
-def multiMain():
-    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'
+def main():
+    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
     start = time.time()
 
-    results = connection(table)
-    animals = sort_split(results)
+    results = connection(table)  # <- Here the even table is pulled
+    animals = sort_split(results)  # <- This takes the event table (2d list) as input and returns a 3d list sorted for each animal
     print('The length of the table = ' + str(len(results)))
     results = None
     frames = 15
@@ -19,7 +19,7 @@ def multiMain():
 
         processes = []
         for animal in animals:
-            p = Process(target=check_events, args=(animalResults, animal,frames))
+            p = Process(target=check_events, args=(animalResults, animal, frames))
             p.start()
             processes.append(p)
         for p in processes:
@@ -34,7 +34,7 @@ def multiMain():
         i += 1
     print('The total length = ' + str(totalLen))
 
-    replace_table(table, animalResults)
+    #replace_table(table, animalResults)
     end = time.time()
     print('time elapsed: ' + str(end - start))
 
@@ -43,13 +43,10 @@ def replace_table(table, animalResults):
     conn = sqlite3.connect(table)
     cursor = conn.cursor()
     cursor.execute('DELETE FROM event')
-    # print(animalResults)
     for animal in animalResults:
         for row in animal:
-            # print(row)
             sql = "INSERT INTO event VALUES (?,?,?,?,?,?,?,?,?)"
             val = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
-            # print(sql,val)
             cursor.execute(sql, val)
 
     conn.commit()
@@ -61,7 +58,7 @@ def connection(table):
 
     cursor = conn.cursor()
 
-    cursor.execute("select * from event limit 10000")
+    cursor.execute("select * from event")
 
     results = cursor.fetchall()
     results = [list(elem) for elem in results]
@@ -89,7 +86,7 @@ def sort_split(results):
     return animals
 
 
-def check_events(L, result,frames):
+def check_events(L, result, frames):
     listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
                           'RFID MATCH',
                           'RFID MISMATCH',
@@ -107,7 +104,6 @@ def check_events(L, result,frames):
 
             if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < frames and row[
                 1] not in listExcludedEvents:
-                # print(str(row[0]) +' '+ row[1])
                 same = True
                 while same:
                     nextLine = result[result.index(row) + 1]
@@ -123,4 +119,4 @@ def check_events(L, result,frames):
 
 
 if __name__ == '__main__':
-    multiMain()
+    main()
