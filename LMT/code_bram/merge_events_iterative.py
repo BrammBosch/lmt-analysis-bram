@@ -61,11 +61,11 @@ def replace_table(table, animalResults):
 
 
 def connection(table):
-    conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
+    conn = sqlite3.connect("C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite")  # <- Connect to the database using the variable declared in main
 
     cursor = conn.cursor()
 
-    cursor.execute("select * from event")
+    cursor.execute("select * from event limit 10000")
 
     results = cursor.fetchall()
     results = [list(elem) for elem in results]  # <- Change list of tuples to a list of lists
@@ -107,7 +107,7 @@ def check_events(L, result, frames):
                           ]  # <- All of these events are not looked at to merge
     try:
         for row in result:
-
+            print(row)
             if result.index(row) + 1 == len(result):
                 raise IndexError  # <- If the row that is checked it the last row it raises and catches an error to end the loop
 
@@ -117,21 +117,24 @@ def check_events(L, result, frames):
                 1] not in listExcludedEvents:  # <- If the event name is the same as the next row and the animals are the same as the next row
                 # and the frame difference is less than the variable called in the main and the event name is not one of the exceptions
                 same = True
-                result[result.index(nextLine) - 1][4] = nextLine[4]
+                print(nextLine)
+                result[result.index(row)][4] = nextLine[4]
 
                 result.remove(nextLine)
                 while same:
 
-                    nextLine = result[result.index(row) + 2]
+                    nextLine = result[result.index(row) + 1]
+
                     if row[1] == nextLine[1] and row[5:] == nextLine[5:] and nextLine[3] - row[4] < frames and row[
                         1] not in listExcludedEvents:  # <- checks the same things as the previous if statements to see if there are more than 1 similar rows
 
-                        result[result.index(nextLine) - 2][4] = nextLine[4]
-
+                        result[result.index(row)][4] = nextLine[4]
+                        print(nextLine)
                         result.remove(nextLine)
                     else:
 
                         same = False
+            print('')
     except IndexError:
         L.append(result)
 
