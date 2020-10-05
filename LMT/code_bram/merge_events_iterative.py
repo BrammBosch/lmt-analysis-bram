@@ -61,7 +61,8 @@ def replace_table(table, animalResults):
 
 
 def connection(table):
-    conn = sqlite3.connect("C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite")  # <- Connect to the database using the variable declared in main
+    conn = sqlite3.connect(
+        "C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite")  # <- Connect to the database using the variable declared in main
 
     cursor = conn.cursor()
 
@@ -86,13 +87,13 @@ def sort_split(results):
             animals[3].append(line)
 
     animals[0] = sorted(animals[0], key=lambda x: ((x[6] is None, x[6]), (x[7] is None, x[7]), (x[8] is None, x[8]),
-                                                   x[3]))  # <- Sort the 2d lists animals and then the start frame
+                                                   x[1], x[3]))  # <- Sort the 2d lists animals and then the start frame
     animals[1] = sorted(animals[1], key=lambda x: ((x[6] is None, x[6]), (x[7] is None, x[7]), (x[8] is None, x[8]),
-                                                   x[3]))  # <- Sort the 2d lists animals and then the start frame
+                                                   x[1], x[3]))  # <- Sort the 2d lists animals and then the start frame
     animals[2] = sorted(animals[2], key=lambda x: ((x[6] is None, x[6]), (x[7] is None, x[7]), (x[8] is None, x[8]),
-                                                   x[3]))  # <- Sort the 2d lists animals and then the start frame
+                                                   x[1], x[3]))  # <- Sort the 2d lists animals and then the start frame
     animals[3] = sorted(animals[3], key=lambda x: ((x[6] is None, x[6]), (x[7] is None, x[7]), (x[8] is None, x[8]),
-                                                   x[3]))  # <- Sort the 2d lists animals and then the start frame
+                                                   x[1], x[3]))  # <- Sort the 2d lists animals and then the start frame
 
     return animals
 
