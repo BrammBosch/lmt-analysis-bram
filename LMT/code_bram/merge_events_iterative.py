@@ -5,8 +5,7 @@ from multiprocessing import Process, Manager
 animalResults = []
 
 
-def main():
-    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
+def main(table):
     frames = 15  # <- The amount of frames between events based on which the merge is performed
     start = time.time()
 
@@ -62,11 +61,11 @@ def replace_table(table, animalResults):
 
 def connection(table):
     conn = sqlite3.connect(
-        "C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite")  # <- Connect to the database using the variable declared in main
+        table)  # <- Connect to the database using the variable declared in main
 
     cursor = conn.cursor()
 
-    cursor.execute("select * from event limit 10000")
+    cursor.execute("select * from event")
 
     results = cursor.fetchall()
     results = [list(elem) for elem in results]  # <- Change list of tuples to a list of lists
@@ -114,10 +113,15 @@ def check_events(L, result, frames):
 
             nextLine = result[result.index(row) + 1]
 
-            if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < frames and row[
+            if row[1] == nextLine[1] and row[5:] == nextLine[5:] and nextLine[3] - row[4] < frames and row[
                 1] not in listExcludedEvents:  # <- If the event name is the same as the next row and the animals are the same as the next row
                 # and the frame difference is less than the variable called in the main and the event name is not one of the exceptions
                 same = True
+                print(row[4])
+                print(nextLine[3])
+                print(nextLine[3] - row[4])
+
+                print('merging with:')
                 print(nextLine)
                 result[result.index(row)][4] = nextLine[4]
 
@@ -130,6 +134,7 @@ def check_events(L, result, frames):
                         1] not in listExcludedEvents:  # <- checks the same things as the previous if statements to see if there are more than 1 similar rows
 
                         result[result.index(row)][4] = nextLine[4]
+                        print('merging with:')
                         print(nextLine)
                         result.remove(nextLine)
                     else:
@@ -141,4 +146,5 @@ def check_events(L, result, frames):
 
 
 if __name__ == '__main__':
-    main()
+    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
+    main(table)
