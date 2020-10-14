@@ -6,7 +6,7 @@ def connection(table):
 
     cursor = conn.cursor()
 
-    cursor.execute("select * from event limit 10000")
+    cursor.execute("select * from event")
 
     results = cursor.fetchall()
     results = [list(elem) for elem in results]  # <- Change list of tuples to a list of lists

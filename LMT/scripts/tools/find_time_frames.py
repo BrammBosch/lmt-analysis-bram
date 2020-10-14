@@ -57,7 +57,7 @@ def find_frames(table, start_time, end_time):
 
     max_time, min_time = find_max_min_time(table)
 
-    if epoch_end*100 > max_time or epoch_start*100 < min_time:
+    if epoch_end * 100 > max_time or epoch_start * 100 < min_time:
         print('The timestamps are not in the database')
         return None, None
     else:
