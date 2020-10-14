@@ -24,12 +24,14 @@ if __name__ == '__main__':
          
         # load infos about the animals
         animalPool.loadAnimals( connection )
-        
+
+        for animal in animalPool.getAnimalList():
+            print(animal.RFID)
         # load all detection (positions) of all animals for the first hour
-        animalPool.loadDetection( start = 0, end = oneHour , lightLoad = True )
-        
-        # plot and show trajectory
-        animalPool.plotTrajectory()
+        # animalPool.loadDetection( start = 0, end = oneHour , lightLoad = True )
+        #
+        # # plot and show trajectory
+        # animalPool.plotTrajectory()
 
     
     

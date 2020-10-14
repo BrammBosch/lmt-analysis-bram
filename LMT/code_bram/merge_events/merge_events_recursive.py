@@ -1,12 +1,13 @@
 import sqlite3
 import time
+from scripts.tools.select_events import connection
 
 
 def main():
     start = time.time()
-
+    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
     framesRemoved = 15
-    results = connection()
+    results = connection(table)
     animals = sort_split(results)
     print('The length of the table = ' + str(len(results)))
     results = None
@@ -29,16 +30,6 @@ def main():
     print('time elapsed: ' + str(end - start))
 
 
-def connection():
-    conn = sqlite3.connect('C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite')
-
-    cursor = conn.cursor()
-
-    cursor.execute("select * from event")
-
-    results = cursor.fetchall()
-    results = [list(elem) for elem in results]
-    return results
 
 
 def sort_split(results):
