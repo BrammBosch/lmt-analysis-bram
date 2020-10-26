@@ -112,3 +112,8 @@ LMT/scripts/measures_profile_cc_mice_one_mouse_day3_a.txt
 LMT/scripts/profile_CC_strain_single_obj_explo_phase_1.txt
 LMT/scripts/profile_CC_strain_single_obj_explo_phase_1.txt
 *.pdf
+LMT/code_bram/SVM/__init__.py
+LMT/code_bram/ml/__init__.py
+LMT/.idea/misc.xml
+LMT/.idea/LMT.iml
+LMT/code_bram/test.py
