@@ -8,6 +8,8 @@ np.set_printoptions(threshold=sys.maxsize)
 
 
 def visualise_2_features(X, y):
+    X = np.array(X)
+
     h = .02  # step size in the mesh
 
     # we create an instance of SVM and fit out data. We do not scale our
@@ -67,7 +69,7 @@ def run_SVM_linear(data, data_class, r):
     train, benchmark, train_class, benchmark_class = train_test_split(data, data_class, test_size=0.2, random_state=r)
 
     C = 1.0
-
+    print('============================================')
     print("training now Linear")
     svc = svm.SVC(kernel='linear')
 
@@ -85,6 +87,7 @@ def run_SVM_RBF(data, data_class, r):
     train, benchmark, train_class, benchmark_class = train_test_split(data, data_class, test_size=0.2, random_state=r)
 
     C = 1.0
+    print('============================================')
 
     print("training now rbf")
     svc = svm.SVC(kernel='rbf', gamma=0.7, C=C)
@@ -103,7 +106,7 @@ def run_SVM_poly(data, data_class, r):
     train, benchmark, train_class, benchmark_class = train_test_split(data, data_class, test_size=0.2, random_state=r)
 
     C = 1.0
-
+    print('============================================')
     print("training now poly")
     svc = svm.SVC(kernel='poly', gamma=0.7, C=C)
 
