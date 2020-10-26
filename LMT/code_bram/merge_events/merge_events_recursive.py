@@ -4,10 +4,17 @@ from scripts.tools.select_events import connection
 
 
 def main():
+    listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
+                          'RFID MATCH',
+                          'RFID MISMATCH'
+                          'MACHINE LEARNING ASSOCIATION',
+                          'Detection'
+                          'Head detected'
+                          ]
     start = time.time()
-    table = 'C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
+    table = 'C:/Users/Bram/Documents/radboud/LMT_data_original/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
     framesRemoved = 15
-    results = connection(table)
+    results = connection(table, listExcludedEvents)
     animals = sort_split(results)
     print('The length of the table = ' + str(len(results)))
     results = None
@@ -54,13 +61,7 @@ def sort_split(results):
 
 
 def check_next_event(results, i, framesRemoved):
-    listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
-                          'RFID MATCH',
-                          'RFID MISMATCH'
-                          'MACHINE LEARNING ASSOCIATION',
-                          'Detection'
-                          'Head detected'
-                          ]
+
     for row in results[i:]:
         # print('Next event')
         # print(len(results))
@@ -70,8 +71,7 @@ def check_next_event(results, i, framesRemoved):
 
         nextLine = results[results.index(row) + 1]
 
-        if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < framesRemoved and row[
-            1] not in listExcludedEvents:
+        if row[1] == nextLine[1] and row[5:] == nextLine[5:] and row[4] - nextLine[3] < framesRemoved:
             newResults = merge_events(results, nextLine)
 
             check_next_event(newResults, newResults.index(row),15)

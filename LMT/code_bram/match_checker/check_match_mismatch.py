@@ -4,9 +4,11 @@ from scripts.tools.select_events import connection
 
 def match_mismatch_main(table):
     result = connection(table)
-    count_match_mismatch(result)
+    count_match, count_mismatch = count_match_mismatch(result)
     time_mismatch_last_match = time_mismatch_match(result)
     print(time_mismatch_last_match)
+    print('The amount of matches for mice 1,2,3 and 4 are: ' + str(count_match))
+    print('The amount of mismatches for mice 1,2,3 and 4 are: ' + str(count_mismatch))
 
 def count_match_mismatch(result):
     match_and_mismatch = []
@@ -36,9 +38,8 @@ def count_match_mismatch(result):
 
     # print(match_and_mismatch)
     animals = sort_split(match_and_mismatch)
-    print('The amount of matches for mice 1,2,3 and 4 are: ' + str(count_match))
-    print('The amount of mismatches for mice 1,2,3 and 4 are: ' + str(count_mismatch))
 
+    return count_match, count_mismatch
 
 def time_mismatch_match(result):
     time_mismatch_last_match = [[], [], [], []]

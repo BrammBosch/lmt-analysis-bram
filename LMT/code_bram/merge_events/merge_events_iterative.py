@@ -9,9 +9,16 @@ animalResults = []
 
 def main_event_merge(table):
     frames = 15  # <- The amount of frames between events based on which the merge is performed
+    listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
+                          'RFID MATCH',
+                          'RFID MISMATCH',
+                          'MACHINE LEARNING ASSOCIATION',
+                          'Detection',
+                          'Head detected'
+                          ]  # <- All of these events are not looked at to merge
     start = time.time()
 
-    results = connection(table)  # <- Here the even table is pulled
+    results = connection(table, listExcludedEvents)  # <- Here the even table is pulled
     print('The length of the entire table = ' + str(len(results)))
     results = sort_split(
         results)  # <- This takes the event table (2d list) as input and returns a 3d list sorted for each animal
@@ -62,13 +69,6 @@ def replace_table(table, animalResults):
 
 
 def check_events(L, result, frames):
-    listExcludedEvents = ['RFID ASSIGN ANONYMOUS TRACK',
-                          'RFID MATCH',
-                          'RFID MISMATCH',
-                          'MACHINE LEARNING ASSOCIATION',
-                          'Detection',
-                          'Head detected'
-                          ]  # <- All of these events are not looked at to merge
     try:
         for row in result:
             print(row)
@@ -77,8 +77,8 @@ def check_events(L, result, frames):
 
             nextLine = result[result.index(row) + 1]
 
-            if row[1] == nextLine[1] and row[5:] == nextLine[5:] and nextLine[3] - row[4] < frames and row[
-                1] not in listExcludedEvents:  # <- If the event name is the same as the next row and the animals are the same as the next row
+            if row[1] == nextLine[1] and row[5:] == nextLine[5:] and nextLine[3] - row[
+                4] < frames:  # <- If the event name is the same as the next row and the animals are the same as the next row
                 # and the frame difference is less than the variable called in the main and the event name is not one of the exceptions
                 same = True
                 print(row[4])
@@ -94,8 +94,8 @@ def check_events(L, result, frames):
 
                     nextLine = result[result.index(row) + 1]
 
-                    if row[1] == nextLine[1] and row[5:] == nextLine[5:] and nextLine[3] - row[4] < frames and row[
-                        1] not in listExcludedEvents:  # <- checks the same things as the previous if statements to see if there are more than 1 similar rows
+                    if row[1] == nextLine[1] and row[5:] == nextLine[5:] and nextLine[3] - row[
+                        4] < frames:  # <- checks the same things as the previous if statements to see if there are more than 1 similar rows
 
                         result[result.index(row)][4] = nextLine[4]
                         print('merging with:')
