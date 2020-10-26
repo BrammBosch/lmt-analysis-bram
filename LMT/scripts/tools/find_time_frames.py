@@ -18,7 +18,8 @@ def find_start_end_file(table):
 
     start_frame = start_frame[0][0]
     end_frame = end_frame[0][0]
-
+    print('-' * 15)
+    print(table)
     print(start_frame)
     print(end_frame)
     print('-' * 15)
@@ -38,21 +39,22 @@ def find_frames(table, start_time, end_time):
             if start_time[2] == end_time[2]:
                 print('the timestamps are the same')
             elif start_time[2] < end_time[2]:
-                epoch_end = int(
-                    datetime.datetime(year, month, day, end_time[0], end_time[1], end_time[2]).timestamp()) * 10
+                next_day = False
             else:
                 print('End time before start')
         elif start_time[1] < end_time[1]:
-
-            epoch_end = int(
-                datetime.datetime(year, month, day, end_time[0], end_time[1], end_time[2]).timestamp()) * 10
+            next_day = False
         else:
             print('End time before start')
     elif start_time < end_time:
+        next_day = False
 
+    else:
+        next_day = True
+
+    if next_day == False:
         epoch_end = int(datetime.datetime(year, month, day, end_time[0], end_time[1], end_time[2]).timestamp()) * 10
     else:
-
         epoch_end = int(datetime.datetime(year, month, day + 1, end_time[0], end_time[1], end_time[2]).timestamp()) * 10
 
     max_time, min_time = find_max_min_time(table)
@@ -102,6 +104,4 @@ def find_frames_db(table, epoch_start, epoch_end):
     result_start = [list(elem) for elem in result_start]  # <- Change list of tuples to a list of lists
     result_end = [list(elem) for elem in result_end]  # <- Change list of tuples to a list of lists
 
-    print(result_start)
-    print(result_end)
     return result_start, result_end
