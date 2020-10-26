@@ -1,5 +1,4 @@
-import sqlite3
-from code_bram.ml.simple_SVM import run_SVM
+from code_bram.SVM.simple_SVM import run_SVM
 
 
 from scripts.tools.select_events import connection
