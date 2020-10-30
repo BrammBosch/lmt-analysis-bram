@@ -1,7 +1,7 @@
 from code_bram.SVM.simple_SVM import run_SVM
 
 
-from scripts.tools.select_events import connection
+from scripts.tools.select_db import connection
 
 
 

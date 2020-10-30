@@ -1,7 +1,7 @@
 import sqlite3
 import time
 from multiprocessing import Process, Manager
-from scripts.tools.select_events import connection
+from scripts.tools.select_db import connection
 from scripts.tools.sort_split import sort_split
 
 animalResults = []
