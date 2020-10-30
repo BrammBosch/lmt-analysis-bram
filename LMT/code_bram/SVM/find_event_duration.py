@@ -1,6 +1,6 @@
 from multiprocessing import Process, Manager
 
-from scripts.tools.select_events import connection
+from scripts.tools.select_db import connection
 
 allEventInformation = {}
 
@@ -15,9 +15,6 @@ def eventDuration(L, table):
                           ]
 
     results = connection(table, listExcludedEvents)  # <- Here the event table is pulled
-    #print('The length of the entire table = ' + str(len(results)))
-    #listEvents = find_all_events(results)
-    #print(listEvents)
     animals = sort_split(
         results)  # <- This takes the event table (2d list) as input and returns a 3d list sorted for each animal
 
@@ -36,10 +33,8 @@ def eventDuration(L, table):
 
     avgdict = {}
 
-    #print(allEventInformation)
     for key in allEventInformation:
         avgdict[key] = Average(allEventInformation[key])
-    #print(avgdict)
     L.append(avgdict)
 
     return L, allEventInformation
@@ -88,6 +83,8 @@ def sort_split(results):
 
 
 if __name__ == '__main__':
+    data = []
     table = 'C:/Users/Bram/Documents/radboud/LMT_data_post/28042020_20170048001_Group2_PreTreatment.sqlite'  # <- This string points to the table that is used as input
-    data = eventDuration(table)
-    #print(data)
+    data, allData = eventDuration(data,table)
+    print(data)
+    print(allData)

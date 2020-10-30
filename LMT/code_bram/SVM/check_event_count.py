@@ -32,10 +32,6 @@ def check_event_count(filenames, list_excluded_events):
             elif event[2] != None and event[3] != None and event[4] != None and event[0] not in all_events_4:
                 all_events_4.append(event[0])
 
-    print(len(all_events_1))
-    print(len(all_events_2))
-    print(len(all_events_3))
-    print(len(all_events_4))
     all_events = []
     for eventName in all_events_1:
         for i in range(1, 5):
@@ -62,8 +58,6 @@ def check_event_count(filenames, list_excluded_events):
                         if i != j and i != k and i != l and j != k and j != l and j != k and k != l:
                             all_events.append((eventName, i, j, k, l))
 
-    print(len(all_events))
-    print(all_events)
 
 
     return all_events

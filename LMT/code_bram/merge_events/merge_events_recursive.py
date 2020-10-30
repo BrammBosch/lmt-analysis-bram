@@ -1,6 +1,6 @@
 import sqlite3
 import time
-from scripts.tools.select_events import connection
+from scripts.tools.select_db import connection
 
 
 def main():

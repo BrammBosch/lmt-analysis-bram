@@ -18,11 +18,13 @@ def find_start_end_file(table):
 
     start_frame = start_frame[0][0]
     end_frame = end_frame[0][0]
-    print('-' * 15)
-    print(table)
-    print(start_frame)
-    print(end_frame)
-    print('-' * 15)
+    # print('-' * 15)
+    # print(table)
+    # print(start_frame)
+    # print(end_frame)
+    # print('-' * 15)
+    return start_frame, end_frame
+
 
 
 def find_frames(table, start_time, end_time):

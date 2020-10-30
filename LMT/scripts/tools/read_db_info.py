@@ -29,8 +29,8 @@ def link_db_excel(files):
 
 def read_excel(location):
     os.chdir(location)
-    for file in glob.glob("*.xlsx"):
-        location = location + '/' + file
+    #for file in glob.glob("*.xlsx"):
+    location = location + '/' + 'overview_dataset.xlsx'
     xl_file = pd.read_excel(location)
     return xl_file
 
@@ -50,10 +50,10 @@ def db_animals(file):
 
 def read_database_info(files):
     info = {}
-    location = os.path.dirname(files[0])
+    location = os.path.dirname(files)
     os.chdir(location)
-    for file in glob.glob("*.xlsx"):
-        location = location + '/' + file
+    #for file in glob.glob("*.xlsx"):
+    location = location + '/' + 'overview_dataset.xlsx'
 
     df = pd.read_excel(location)
     for index, row in df.iterrows():

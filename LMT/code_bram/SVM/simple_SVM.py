@@ -2,6 +2,7 @@ import sys
 from sklearn import svm, metrics, datasets
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.model_selection import train_test_split
 
 np.set_printoptions(threshold=sys.maxsize)
@@ -19,6 +20,8 @@ def visualise_2_features(X, y):
     rbf_svc = svm.SVC(kernel='rbf', gamma=0.7, C=C).fit(X, y)
     poly_svc = svm.SVC(kernel='poly', degree=3, C=C).fit(X, y)
     lin_svc = svm.LinearSVC(C=C).fit(X, y)
+
+
 
     # create a mesh to plot in
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
@@ -60,6 +63,9 @@ def visualise_2_features(X, y):
 
 
 def run_SVM(data, data_class, r):
+
+    #data = SelectKBest(chi2, k=2).fit_transform(data, data_class)
+
     run_SVM_linear(data, data_class, r)
     run_SVM_poly(data, data_class, r)
     run_SVM_RBF(data, data_class, r)
