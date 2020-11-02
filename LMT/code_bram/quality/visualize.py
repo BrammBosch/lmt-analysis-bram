@@ -24,8 +24,10 @@ def boxplot(time_mismatch_last_match,rfid_list):
     ax.set_xticklabels(rfid_list)
     ax.boxplot(time_mismatch_last_match)
 
-    fig.savefig(imgdata, format="png")
+    plt.savefig(imgdata, format="png")
     imgdata.seek(0)
+    plt.clf()
+    plt.close(fig)
     return imgdata
 
 def barchart(time_mismatch_last_match,rfid_list):

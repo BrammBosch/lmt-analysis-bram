@@ -40,7 +40,7 @@ def create_data_and_class():
     end = time.time()
     print('time elapsed calculating event data multiP: ' + str(end - start))
 
-    i = 0
+
 
     list_events = check_event_count(filenames, listExcludedEvents)
     print(listDicts)
@@ -52,6 +52,8 @@ def create_data_and_class():
                 if key[1] == event[1] and event not in animalDict:
                     animalDict[event] = 0
                     break
+
+    i = 0
 
     for animalDict in listDicts:
         animalDict = OrderedDict(sorted(((k, v) for k, v in animalDict.items()), key=lambda v: (

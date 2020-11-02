@@ -15,8 +15,8 @@ def eventDuration(L, table):
                           ]
 
     results = connection(table, listExcludedEvents)  # <- Here the event table is pulled
-    animals = sort_split(
-        results)  # <- This takes the event table (2d list) as input and returns a 3d list sorted for each animal
+    animals = split(
+        results)
 
     manager = Manager()
     d = manager.dict()
@@ -66,7 +66,7 @@ def find_all_events(results):
     return listEvents
 
 
-def sort_split(results):
+def split(results):
     animals = [[], [], [], []]
 
     for line in results:
