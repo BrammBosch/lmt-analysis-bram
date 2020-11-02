@@ -11,11 +11,11 @@ if __name__ == '__main__':
 
     #The start and end time are based on a list where the 0 value is the hour, the 1 value the minute and the 2 value the seconds
 
-    start_time = [12,0,0]
-    end_time = [12,0,30]
+    start_time = [10,0,0]
+    end_time = [9,0,0]
 
     try:
-        start_frame, end_frame = find_frames('C:/Users/Bram/Documents/radboud/LMT_data/28042020_20170048001_Group2_PreTreatment.sqlite',start_time,end_time)
+        start_frame, end_frame = find_frames('C:/Users/Bram/Documents/radboud/LMT_data_post/28042020_20170048001_Group2_PreTreatment.sqlite',start_time,end_time)
         print(start_frame)
         print(end_frame)
     except ValueError:
