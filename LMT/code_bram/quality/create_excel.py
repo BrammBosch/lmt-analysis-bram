@@ -20,7 +20,7 @@ def create_excel():
     workbook = xlsxwriter.Workbook(outputFile)
 
     mainsheet = workbook.add_worksheet('main')
-    mainsheet.set_column(0, 1, 37)
+    mainsheet.set_column(0, 0, 30)
 
     all_mismatch_data = []
     all_rfid_list = []
@@ -78,7 +78,7 @@ def create_excel():
         worksheet.write(x, y + 0, 'Mismatches')
         worksheet.write(x + 1, y - 1, 'RFID:')
         worksheet.write(x + 2, y - 1, 'Amount of mismatches')
-        worksheet.write(x + 3, y - 1, 'Mismatch  / match')
+        worksheet.write(x + 3, y - 1, '% Mismatch per match')
         worksheet.write(x + 1, y + 0, rfid_list[0])
         worksheet.write(x + 1, y + 1, rfid_list[1])
         worksheet.write(x + 1, y + 2, rfid_list[2])
@@ -87,10 +87,10 @@ def create_excel():
         worksheet.write(x + 2, y + 1, count_mismatch[1])
         worksheet.write(x + 2, y + 2, count_mismatch[2])
         worksheet.write(x + 2, y + 3, count_mismatch[3])
-        worksheet.write(x + 3, y + 0, count_mismatch[0] / count_match[0])
-        worksheet.write(x + 3, y + 1, count_mismatch[1] / count_match[1])
-        worksheet.write(x + 3, y + 2, count_mismatch[2] / count_match[2])
-        worksheet.write(x + 3, y + 3, count_mismatch[3] / count_match[3])
+        worksheet.write(x + 3, y + 0, count_mismatch[0] / count_match[0] * 100)
+        worksheet.write(x + 3, y + 1, count_mismatch[1] / count_match[1] * 100)
+        worksheet.write(x + 3, y + 2, count_mismatch[2] / count_match[2] * 100)
+        worksheet.write(x + 3, y + 3, count_mismatch[3] / count_match[3] * 100)
 
         x += 5
         worksheet.write(x, y + 0, 'The average time between a match and mismatch is')
@@ -101,10 +101,10 @@ def create_excel():
         worksheet.write(x + 1, y + 1, rfid_list[1])
         worksheet.write(x + 1, y + 2, rfid_list[2])
         worksheet.write(x + 1, y + 3, rfid_list[3])
-        worksheet.write(x + 2, y + 0, sum(time_mismatch_last_match[0]) / len(time_mismatch_last_match[0]) * 100)
-        worksheet.write(x + 2, y + 1, sum(time_mismatch_last_match[1]) / len(time_mismatch_last_match[1]) * 100)
-        worksheet.write(x + 2, y + 2, sum(time_mismatch_last_match[2]) / len(time_mismatch_last_match[2]) * 100)
-        worksheet.write(x + 2, y + 3, sum(time_mismatch_last_match[3]) / len(time_mismatch_last_match[3]) * 100)
+        worksheet.write(x + 2, y + 0, sum(time_mismatch_last_match[0]) / len(time_mismatch_last_match[0]))
+        worksheet.write(x + 2, y + 1, sum(time_mismatch_last_match[1]) / len(time_mismatch_last_match[1]))
+        worksheet.write(x + 2, y + 2, sum(time_mismatch_last_match[2]) / len(time_mismatch_last_match[2]))
+        worksheet.write(x + 2, y + 3, sum(time_mismatch_last_match[3]) / len(time_mismatch_last_match[3]))
 
         imgdata = plots(file, count_match, count_mismatch, time_mismatch_last_match)
 
@@ -114,8 +114,8 @@ def create_excel():
             x, 0, "",
             {'image_data': imgdata, 'x_scale': 0.6, 'y_scale': 0.6}
         )
-    kruskal(all_mismatch_data)
-
+    kruskal_result = kruskal(all_mismatch_data)
+    print(kruskal_result)
     all_data = [j for sub in all_mismatch_data for j in sub]
     all_data = np.array(all_data)
 
@@ -126,25 +126,15 @@ def create_excel():
     mainsheet.write(2, 0, 'Third standard deviation: ')
     mainsheet.write(2, 1, 3 * all_data.std())
 
-    j = 0
-    k = 5
-    mainsheet.write(4, 0, 'RFID ')
-    mainsheet.write(4, 1, 'Mean time between match and mismatch')
 
     imgdata = boxplot(all_data, ['all'])
-    # imgdata = plots(file, count_match, count_mismatch, time_mismatch_last_match)
 
     mainsheet.insert_image(
-        0, 5, "",
+        6, 0, "",
         {'image_data': imgdata, 'x_scale': 0.6, 'y_scale': 0.6}
     )
-
-    while j < len(all_mismatch_data):
-        mainsheet.write(k, 0, all_rfid_list[j])
-        mainsheet.write(k, 1, (sum(all_mismatch_data[j]) / len(all_mismatch_data[j])))
-        k += 1
-        j += 1
-    # print(sum(all_data) / len(all_data))
+    mainsheet.write(4,0,'Kruskal-wallis test p-value:')
+    mainsheet.write(4,1,kruskal_result[1])
 
     workbook.close()
 
@@ -158,7 +148,6 @@ def kruskal(x):
         n += 1
     args = [l for l in list_]
 
-    print(stats.kruskal(*args))
-
+    return stats.kruskal(*args)
 
 create_excel()
