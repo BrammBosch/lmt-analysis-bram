@@ -3,12 +3,16 @@ from multiprocessing import Process, Manager
 
 
 def check_event_count(filenames, list_excluded_events):
+    """
+    This function takes as input a list of all files and a list of events not to include.
+    It returns a list of
+    """
+
     with Manager() as manager:
         list_event_count = manager.list()  # <- declare a special list variable to be used by multiple processes
 
         processes = []
         for file in filenames:  # <- for each animal a process is generated. Each process runs at the same time to optimise the program.
-            # print(file)
             p = Process(target=connection_event_types, args=(list_event_count, file, list_excluded_events))
             p.start()
             processes.append(p)
@@ -50,15 +54,6 @@ def check_event_count(filenames, list_excluded_events):
                     if i != j and i != k and j != k:
                         all_events.append((eventName, i, j, k, None))
 
-    for eventName in all_events_3:
-        for i in range(1, 5):
-            for j in range(1, 5):
-                for k in range(1, 5):
-                    for l in range(1, 5):
-                        if i != j and i != k and i != l and j != k and j != l and j != k and k != l:
-                            all_events.append((eventName, i, j, k, l))
-
-
 
     return all_events
 
@@ -91,7 +86,7 @@ if __name__ == '__main__':
                           'Detection',
                           'Head detected'
                           ]
-    check_event_count(['C:/Users/Bram/Documents/radboud/LMT_data_post\\11052020_20170048001_Group3_PreTreatment.sqlite',
+    a = check_event_count(['C:/Users/Bram/Documents/radboud/LMT_data_post\\11052020_20170048001_Group3_PreTreatment.sqlite',
                        'C:/Users/Bram/Documents/radboud/LMT_data_post\\12052020_20170048001_Group4_PreTreatment.sqlite',
                        'C:/Users/Bram/Documents/radboud/LMT_data_post\\12102020_20170048002_Group4_PreTreatment.sqlite',
                        'C:/Users/Bram/Documents/radboud/LMT_data_post\\13052020_20170048001_Group5_PreTreatment.sqlite',
@@ -101,3 +96,4 @@ if __name__ == '__main__':
                        'C:/Users/Bram/Documents/radboud/LMT_data_post\\26082020_20170048002_Group3_PreTreatment.sqlite',
                        'C:/Users/Bram/Documents/radboud/LMT_data_post\\28042020_20170048001_Group2_PreTreatment.sqlite'],
                       listExcludedEvents)
+    print(a)
