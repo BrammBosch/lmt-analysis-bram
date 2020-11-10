@@ -1,10 +1,16 @@
-import sqlite3
 import os
 import ntpath
 import datetime
 
+from scripts.tools.select_db import find_max_min_time, find_frames_db
+
 
 def find_start_end_file(table):
+    """
+    This function takes a file location and returns the frames for 10:00 and 09:00 the following day,
+    being as close as possible to 23 hours
+
+    """
     date = os.path.splitext(ntpath.basename(table))[0].split('_')[0]
 
     day = int(date[:2])
@@ -18,16 +24,16 @@ def find_start_end_file(table):
 
     start_frame = start_frame[0][0]
     end_frame = end_frame[0][0]
-    # print('-' * 15)
-    # print(table)
-    # print(start_frame)
-    # print(end_frame)
-    # print('-' * 15)
     return start_frame, end_frame
 
 
-
 def find_frames(table, start_time, end_time):
+    """
+    This function takes a table, a start time and an end time.
+    The start and end times are formatted as a list with 3 indexes like = [hour,minute,second]
+    If the end time is before the start time the function assumes it should look at the next day for the end time.
+    """
+
     date = os.path.splitext(ntpath.basename(table))[0].split('_')[0]
 
     day = int(date[:2])
@@ -50,7 +56,6 @@ def find_frames(table, start_time, end_time):
             print('End time before start')
     elif start_time < end_time:
         next_day = False
-
     else:
         next_day = True
 
@@ -72,38 +77,3 @@ def find_frames(table, start_time, end_time):
         end_frame = end_frame[0][0]
 
         return start_frame, end_frame
-
-
-def find_max_min_time(table):
-    conn = sqlite3.connect(
-        table)  # <- Connect to the database using the variable declared in main
-
-    cursor = conn.cursor()
-
-    cursor.execute("select max(TIMESTAMP) from FRAME")
-    result_max = cursor.fetchall()
-    result_max = result_max[0][0]
-    cursor.execute("select min(TIMESTAMP) from FRAME")
-    result_min = cursor.fetchall()
-    result_min = result_min[0][0]
-
-    return result_max, result_min
-
-
-def find_frames_db(table, epoch_start, epoch_end):
-    conn = sqlite3.connect(
-        table)  # <- Connect to the database using the variable declared in main
-
-    cursor = conn.cursor()
-
-    sql = "select * from FRAME where TIMESTAMP like '" + str(epoch_start) + "%'"
-    cursor.execute(sql)
-    result_start = cursor.fetchall()
-    sql = "select * from FRAME where TIMESTAMP like '" + str(epoch_end) + "%'"
-    cursor.execute(sql)
-    result_end = cursor.fetchall()
-
-    result_start = [list(elem) for elem in result_start]  # <- Change list of tuples to a list of lists
-    result_end = [list(elem) for elem in result_end]  # <- Change list of tuples to a list of lists
-
-    return result_start, result_end

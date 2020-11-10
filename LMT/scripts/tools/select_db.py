@@ -74,6 +74,46 @@ def connection_rfid(table):
     results = [elem[0] for elem in results]
     return results
 
+def find_max_min_time(table):
+    """
+    This function returns the highest and lowest timestamp value from the database
+    """
+    conn = sqlite3.connect(
+        table)  # <- Connect to the database using the variable declared in main
+
+    cursor = conn.cursor()
+
+    cursor.execute("select max(TIMESTAMP) from FRAME")
+    result_max = cursor.fetchall()
+    result_max = result_max[0][0]
+    cursor.execute("select min(TIMESTAMP) from FRAME")
+    result_min = cursor.fetchall()
+    result_min = result_min[0][0]
+
+    return result_max, result_min
+
+
+def find_frames_db(table, epoch_start, epoch_end):
+    """
+    This function returns the frames closest to the timestamps provided
+    """
+    conn = sqlite3.connect(
+        table)  # <- Connect to the database using the variable declared in main
+
+    cursor = conn.cursor()
+
+    sql = "select * from FRAME where TIMESTAMP like '" + str(epoch_start) + "%'"
+    cursor.execute(sql)
+    result_start = cursor.fetchall()
+    sql = "select * from FRAME where TIMESTAMP like '" + str(epoch_end) + "%'"
+    cursor.execute(sql)
+    result_end = cursor.fetchall()
+
+    result_start = [list(elem) for elem in result_start]  # <- Change list of tuples to a list of lists
+    result_end = [list(elem) for elem in result_end]  # <- Change list of tuples to a list of lists
+
+    return result_start, result_end
+
 
 def connection_first_match(table):
     """
