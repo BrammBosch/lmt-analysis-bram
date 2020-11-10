@@ -4,20 +4,26 @@ from scripts.tools.find_time_frames import find_start_end_file
 
 
 def connection(table, *args):
+    """
+    In this function all events are searched.
+    If you only give a file location to this function it will pull all events.
+    If you give it a list of excluded events it will exclude those events
+    """
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
 
     cursor = conn.cursor()
 
-    start_frame, end_frame = find_start_end_file(table)
-    print(start_frame, end_frame)
+    #print(start_frame, end_frame)
 
     if args != ():
         list_excluded_events = args[0]
+        start_frame = args[1]
+        end_frame = args[2]
 
         placeholder = '?'
         placeholders = ', '.join(placeholder for unused in list_excluded_events)
 
-        query = "select * from EVENT where NAME NOT IN (%s) and STARTFRAME > ? and ENDFRAME < ? limit 10000" % placeholders
+        query = "select * from EVENT where NAME NOT IN (%s) and STARTFRAME > ? and ENDFRAME < ? limit 1000" % placeholders
 
         list_excluded_events.append(start_frame)
         list_excluded_events.append(end_frame)
@@ -27,18 +33,21 @@ def connection(table, *args):
 
 
     else:
-        cursor.execute("select * from event limit 10000")
+        cursor.execute("select * from event")
 
     results = cursor.fetchall()
     # print('The lenght of the results in bytes = ' + str(sys.getsizeof(results)))
 
     # print(results)
 
-    # results = [list(elem) for elem in results]  # <- Change list of tuples to a list of lists
+    results = [list(elem) for elem in results]  # <- Change list of tuples to a list of lists
     return results
 
 
 def connection_match(table):
+    """
+    This function returns all RFID MATCH and RFID MISMATCH events from the database.
+    """
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
     cursor = conn.cursor()
 
@@ -51,6 +60,9 @@ def connection_match(table):
 
 
 def connection_rfid(table):
+    """
+    This function returns a list of RFID's used in the database
+    """
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
     cursor = conn.cursor()
 
@@ -63,7 +75,11 @@ def connection_rfid(table):
     return results
 
 
-def connectioon_first_match(table):
+def connection_first_match(table):
+    """
+    This function returns the first RFID MATCH event for each animal
+    """
+
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
     cursor = conn.cursor()
 
