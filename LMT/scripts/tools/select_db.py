@@ -1,6 +1,6 @@
 import sqlite3
 import sys
-from scripts.tools.find_time_frames import find_start_end_file
+
 
 
 def connection(table, *args):
@@ -15,7 +15,7 @@ def connection(table, *args):
 
     #print(start_frame, end_frame)
 
-    if args != ():
+    if len(args) == 3:
         list_excluded_events = args[0]
         start_frame = args[1]
         end_frame = args[2]
@@ -23,14 +23,25 @@ def connection(table, *args):
         placeholder = '?'
         placeholders = ', '.join(placeholder for unused in list_excluded_events)
 
-        query = "select * from EVENT where NAME NOT IN (%s) and STARTFRAME > ? and ENDFRAME < ? limit 1000" % placeholders
+        query = "select * from EVENT where NAME NOT IN (%s) and STARTFRAME > ? and ENDFRAME < ?" % placeholders
 
         list_excluded_events.append(start_frame)
         list_excluded_events.append(end_frame)
 
         val = tuple(list_excluded_events)
         cursor.execute(query, val)
+    elif len(args) == 1:
 
+        list_excluded_events = args[0]
+
+
+        placeholder = '?'
+        placeholders = ', '.join(placeholder for unused in list_excluded_events)
+
+        query = "select * from EVENT where NAME NOT IN (%s)" % placeholders
+
+        val = tuple(list_excluded_events)
+        cursor.execute(query, val)
 
     else:
         cursor.execute("select * from event")
@@ -150,3 +161,32 @@ def connection_first_match(table):
     list_match = [results1, results2, results3, results4]
 
     return list_match
+
+def connection_location(table,startframe, endframe):
+    conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
+    cursor = conn.cursor()
+    framenumbers = [startframe , endframe]
+
+    query = "select ANIMALID, MASS_X, MASS_Y, FRAMENUMBER,FRONT_X from DETECTION where FRAMENUMBER > ? and FRAMENUMBER < ?"
+    cursor.execute(query,framenumbers)
+    results = cursor.fetchall()
+    results = [list(elem) for elem in results]
+    return results
+
+def connection_unique_events(table, list_excluded_events):
+    conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
+    cursor = conn.cursor()
+
+    placeholder = '?'
+    placeholders = ', '.join(placeholder for unused in list_excluded_events)
+
+    query = "select DISTINCT name,IDANIMALA,IDANIMALB,IDANIMALC,IDANIMALD from EVENT where NAME NOT IN (%s)" % placeholders
+
+    val = tuple(list_excluded_events)
+    cursor.execute(query, val)
+
+    results = cursor.fetchall()
+    #results = [list(elem) for elem in results]
+    #print(results)
+    return results
+
