@@ -25,9 +25,8 @@ def main_event_merge(table):
     start = time.time()
     start_frame, end_frame = find_start_end_file(table)
 
-    results = connection(table, listExcludedEvents,start_frame,end_frame)  # <- Here the even table is pulled
+    results = connection(table, listExcludedEvents, start_frame, end_frame)  # <- Here the even table is pulled
     print('The length of the entire table = ' + str(len(results)))
-
 
     animals = []
     unique_event = []
@@ -43,17 +42,16 @@ def main_event_merge(table):
 
         animals[unique_event.index(line[1])].append(line)
 
-
     """
         This loop sorts each list of events based on the animals and the start frames
     """
     it = 0
 
     for animal in animals:
-        animals[it] = sorted(animals[it], key=lambda x: (x[5], (x[6] is None, x[6]), (x[7] is None, x[7]), (x[8] is None, x[8]),
-                                                   x[1], x[3]))
-        it+= 1
-
+        animals[it] = sorted(animals[it],
+                             key=lambda x: (x[5], (x[6] is None, x[6]), (x[7] is None, x[7]), (x[8] is None, x[8]),
+                                            x[1], x[3]))
+        it += 1
 
     """
     This loops over all of the events and calls the merging script.
@@ -76,20 +74,30 @@ def main_event_merge(table):
         totalLen += len(result)
     print('The length of the entire table after merging = ' + str(totalLen))
 
-    replace_table(table, animalResults)  # <- This calls the function to replace the event table with the new merged events.
+    replace_table(table, animalResults,
+                  listExcludedEvents)  # <- This calls the function to replace the event table with the new merged events.
     end = time.time()
     print('time elapsed: ' + str(end - start))
 
 
-def replace_table(table, animalResults):
+def replace_table(table, animalResults, list_excluded_events):
     """
     This functions deletes the existing event table and completely replaces it with the new merged events table
     """
+
+
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
     cursor = conn.cursor()
     print('Replacing')
-    cursor.execute(
-        'DELETE FROM event')
+
+    placeholder = '?'
+    placeholders = ', '.join(placeholder for unused in list_excluded_events)
+
+    query = 'DELETE FROM event WHERE name not in (%s)' % placeholders
+
+    val = tuple(list_excluded_events)
+    cursor.execute(query, val)
+
     for animal in animalResults:
         for row in animal:
             sql = "INSERT INTO event VALUES (?,?,?,?,?,?,?,?,?,?)"  # <- Replace the event table row by row with the new merged events.
@@ -140,9 +148,10 @@ def check_events(L, result, frames):
 
     except IndexError:
         print(result[0][1])
-        print('avg time ' + str(sum(listTime)/len(listTime)))
-        print('len ' + str(len(listTime)))
-        print('-'*15)
+        if len(listTime) > 0:
+            print('avg time ' + str(sum(listTime) / len(listTime)))
+            print('len ' + str(len(listTime)))
+            print('-' * 15)
         L.append(result)
 
 
