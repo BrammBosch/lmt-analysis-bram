@@ -101,7 +101,7 @@ def replace_table(table, animalResults, list_excluded_events):
     for animal in animalResults:
         for row in animal:
             sql = "INSERT INTO event VALUES (?,?,?,?,?,?,?,?,?,?)"  # <- Replace the event table row by row with the new merged events.
-            val = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], '{}')
+            val = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8],'{}')
             cursor.execute(sql, val)
 
     conn.commit()
