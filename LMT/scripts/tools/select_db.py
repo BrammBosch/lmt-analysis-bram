@@ -2,7 +2,6 @@ import sqlite3
 import sys
 
 
-
 def connection(table, *args):
     """
     In this function all events are searched.
@@ -13,7 +12,7 @@ def connection(table, *args):
 
     cursor = conn.cursor()
 
-    #print(start_frame, end_frame)
+    # print(start_frame, end_frame)
 
     if len(args) == 3:
         list_excluded_events = args[0]
@@ -33,7 +32,6 @@ def connection(table, *args):
     elif len(args) == 1:
 
         list_excluded_events = args[0]
-
 
         placeholder = '?'
         placeholders = ', '.join(placeholder for unused in list_excluded_events)
@@ -84,6 +82,7 @@ def connection_rfid(table):
     results = cursor.fetchall()
     results = [elem[0] for elem in results]
     return results
+
 
 def find_max_min_time(table):
     """
@@ -162,18 +161,26 @@ def connection_first_match(table):
 
     return list_match
 
-def connection_location(table,startframe, endframe):
+
+def connection_location(table, startframe, endframe):
+    """
+    This function returns the location data from a database in a certain timeframe
+    """
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
     cursor = conn.cursor()
-    framenumbers = [startframe , endframe]
+    framenumbers = [startframe, endframe]
 
     query = "select ANIMALID, MASS_X, MASS_Y, FRAMENUMBER,FRONT_X from DETECTION where FRAMENUMBER > ? and FRAMENUMBER < ?"
-    cursor.execute(query,framenumbers)
+    cursor.execute(query, framenumbers)
     results = cursor.fetchall()
     results = [list(elem) for elem in results]
     return results
 
+
 def connection_unique_events(table, list_excluded_events):
+    """
+    This function returns all unique events in a database except the events in the list_excluded_events list
+    """
     conn = sqlite3.connect(table)  # <- Connect to the database using the variable declared in main
     cursor = conn.cursor()
 
@@ -186,7 +193,53 @@ def connection_unique_events(table, list_excluded_events):
     cursor.execute(query, val)
 
     results = cursor.fetchall()
-    #results = [list(elem) for elem in results]
-    #print(results)
+    # results = [list(elem) for elem in results]
+    # print(results)
     return results
 
+
+def connection_events_in_time_frame(table, list_excluded_events, start_frame, end_frame):
+    """
+    This function returns all the events for a database except the events in the list_excluded_events list.
+    """
+
+    conn = sqlite3.connect(table)
+
+    cursor = conn.cursor()
+    placeholder = '?'
+    placeholders = ', '.join(placeholder for unused in list_excluded_events)
+
+    query = "select name,startframe,endframe,idanimala, idanimalb,idanimalc,idanimald from EVENT where NAME NOT IN (%s) and STARTFRAME > ? and ENDFRAME < ?" % placeholders
+
+    list_excluded_events.append(start_frame)
+    list_excluded_events.append(end_frame)
+
+    val = tuple(list_excluded_events)
+    cursor.execute(query, val)
+    list_excluded_events.pop()
+    list_excluded_events.pop()
+    results = cursor.fetchall()
+    return results
+
+
+def connection_list_events_in_time_frame(table, list_events, start_frame, end_frame):
+    """
+    This function returns all the events for a database if the event name is in the list_events list.
+    """
+    conn = sqlite3.connect(table)
+
+    cursor = conn.cursor()
+    placeholder = '?'
+    placeholders = ', '.join(placeholder for unused in list_events)
+
+    query = "select name,startframe,endframe,idanimala, idanimalb,idanimalc,idanimald from EVENT where NAME IN (%s) and STARTFRAME > ? and ENDFRAME < ?" % placeholders
+
+    list_events.append(start_frame)
+    list_events.append(end_frame)
+
+    val = tuple(list_events)
+    cursor.execute(query, val)
+    list_events.pop()
+    list_events.pop()
+    results = cursor.fetchall()
+    return results
