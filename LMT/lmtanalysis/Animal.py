@@ -273,7 +273,6 @@ class Animal():
         print ("Draw trajectory of animal " + self.name )
 
         xList, yList = self.getTrajectoryData( maskingEventTimeLine )
-
         plt.plot( xList, yList, color=color, linestyle='-', linewidth=1, alpha=0.5, label= self.name )
         plt.title( title + self.RFID )
         plt.xlim(90, 420)
