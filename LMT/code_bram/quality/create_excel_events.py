@@ -1,12 +1,10 @@
-import os
-import sqlite3
-from statistics import stdev
-from ordered_set import OrderedSet
-import pandas as pd
-import xlsxwriter
 import ntpath
+import os
 import time
-from collections import Counter
+from statistics import stdev
+
+import xlsxwriter
+
 from code_bram.SVM.check_event_count import check_event_count
 from lmtanalysis.FileUtil import getFilesToProcess
 from scripts.tools.read_db_info import db_animals, read_excel
@@ -14,6 +12,16 @@ from scripts.tools.select_db import connection
 
 
 def create_excel_events():
+    """
+    When this function is called it asks for a database or folder of databases and produces 2 excel files with
+    information about the events in these databases.
+    1 excel file per animal and 1 excel file for wildtype and mutant groups.
+
+    In the excel files each sheet represents a database.
+    For each event the name, total amount, total time, average time and SD average time is stored.
+
+    """
+
     list_excluded_events = ['RFID ASSIGN ANONYMOUS TRACK',
                             'RFID MATCH',
                             'RFID MISMATCH',
@@ -21,11 +29,12 @@ def create_excel_events():
                             'Detection',
                             'Head detected'
                             ]
+
     files = getFilesToProcess()
     path = os.path.dirname(os.path.abspath(files[0]))
     all_events = check_event_count(files, list_excluded_events)
 
-    #print(all_events)
+    # print(all_events)
 
     overview_dataset = read_excel(path)
 
@@ -33,7 +42,7 @@ def create_excel_events():
     workbook = xlsxwriter.Workbook(outputFile)
     outputFile_summary = path + '\group_event_information.xlsx'
     summary_workbook = xlsxwriter.Workbook(outputFile_summary)
-
+    #files.sort(key=lambda x: (x.split('\\')[1].split('_')[0][4:], x.split('\\')[1].split('_')[0][2:4], x.split('\\')[1].split('_')[0][0:2]))
     for file in files:
         sheetName = ntpath.basename(file).split('_')[0]
         summary_worksheet = summary_workbook.add_worksheet(sheetName)
@@ -48,12 +57,12 @@ def create_excel_events():
             animal.append(gen)
             info_animals[animal[0]] = [animal[1], animal[2]]
 
-        counter_list_group, total_time_list_group, avg_list_group, sd_list_group,all_events_group = calc_avg_count_total_group(
+        counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group,group1, group2 = calc_avg_count_total_group(
             all_events, results, info_animals)
 
-        summary_worksheet.write(0, 1, 'Wildtype')
-        summary_worksheet.write(0, 7, 'Heterozygote')
-        
+        summary_worksheet.write(0, 1, 'Wildtype (' + info_animals[group1[0]][0] + ', ' + info_animals[group1[1]][0] + ')')
+        summary_worksheet.write(0, 7, 'Heterozygote (' + info_animals[group2[0]][0] + ', ' + info_animals[group2[1]][0] + ')')
+
         summary_worksheet.write(1, 1, 'Event name')
         summary_worksheet.write(1, 2, 'Amount')
         summary_worksheet.write(1, 3, 'Total time')
@@ -68,10 +77,12 @@ def create_excel_events():
 
         summary_worksheet.set_column(1, 1, 55)
         summary_worksheet.set_column(2, 2, 15)
+        summary_worksheet.set_column(3, 3, 15)
         summary_worksheet.set_column(4, 4, 12)
         summary_worksheet.set_column(5, 5, 18)
         summary_worksheet.set_column(7, 7, 55)
         summary_worksheet.set_column(8, 8, 15)
+        summary_worksheet.set_column(9, 9, 15)
         summary_worksheet.set_column(10, 10, 12)
         summary_worksheet.set_column(11, 11, 18)
 
@@ -79,7 +90,6 @@ def create_excel_events():
         place_wt = 2
 
         for i in range(len(all_events_group)):
-
             if all_events_group[i][1] == 'WT':
                 place = place_wt
                 name_event_place = 1
@@ -96,16 +106,27 @@ def create_excel_events():
                 avg_list_place = 10
                 sd_list_place = 11
                 place_het += 1
+            if all_events_group[i][2] == None:
+                summary_worksheet.write(place, name_event_place,
+                                        str(all_events_group[i][0]))
 
+            elif all_events_group[i][2] != None and all_events_group[i][3] == None:
+                summary_worksheet.write(place, name_event_place,
+                                        str(all_events_group[i][0]) + " " + all_events_group[i][1] + "-" +
+                                            all_events_group[i][2])
 
+            elif all_events_group[i][2] != None and all_events_group[i][3] != None:
+                summary_worksheet.write(place, name_event_place,
+                                        str(all_events_group[i][0]) + " " + all_events_group[i][1] + "-" +
+                                            all_events_group[i][2] + "-" + all_events_group[i][3])
+            else:
+                summary_worksheet.write(place, name_event_place, str(all_events_group[i][0]))
 
-            summary_worksheet.write(place, name_event_place, str(all_events_group[i]))
+            # summary_worksheet.write(place, name_event_place, str(all_events_group[i]))
             summary_worksheet.write(place, counter_place, counter_list_group[i])
             summary_worksheet.write(place, total_time_place, total_time_list_group[i])
             summary_worksheet.write(place, avg_list_place, avg_list_group[i])
             summary_worksheet.write(place, sd_list_place, sd_list_group[i])
-
-
 
         sheetName = ntpath.basename(file).split('_')[0]
         worksheet = workbook.add_worksheet(sheetName)
@@ -118,10 +139,10 @@ def create_excel_events():
             gen = gen.iloc[0]
             animal.append(gen)
             info_animals[animal[0]] = [animal[1], animal[2]]
-        #print(info_animals)
+        # print(info_animals)
         results = connection(file, list_excluded_events)
 
-        counter_list, total_time_list, avg_list, sd_list= calc_avg_count_total(all_events, results)
+        counter_list, total_time_list, avg_list, sd_list = calc_avg_count_total(all_events, results)
 
         k = 0
         for number in range(4):
@@ -211,13 +232,30 @@ def create_excel_events():
 
 
 def calc_avg_count_total_group(all_events, results, info_animals):
+    """
+    This functions takes as input:
+    A list of all the events present in all the databases.
+    A lists of the rows from the database.
+    A dictionary of the form : {id: [rfid, genotype]} for each of the animals in the database.
+
+    It returns the information:
+    Where for each list the index corresponds with the all events list.
+
+    counter_list_group: A list with the total count for each event.
+    total_time_list_group: A list with the total time in frames for each event.
+    avg_list_group: The average time in frames spent during an event.
+    sd_list_group: The standard deviation in frames for each event
+    all_events_group: A new list with all events without the animal id's
+    group1: The id's of the wildtype group
+    group2: The id's of the mutant group
+    """
+    print(info_animals)
     all_events_group = []
     total_time_list_group = []
     counter_list_group = []
     time_list_group = []
 
-
-    #print(info_animals)
+    # print(info_animals)
 
     if info_animals[1][1] == info_animals[2][1]:
         groupa = [1, 2]
@@ -249,49 +287,23 @@ def calc_avg_count_total_group(all_events, results, info_animals):
                 event[i] = 'HET'
             else:
                 event[i] = None
-
-        # if event[2] in group1:
-        #     event[2] = 'WT'
-        # elif event[2] in group2:
-        #     event[2] = 'HET'
-        # else:
-        #     event[2] = None
-        #
-        # if event[3] in group1:
-        #     event[3] = 'WT'
-        # elif event[3] in group2:
-        #     event[3] = 'HET'
-        # else:
-        #     event[3] = None
-        #
-        # if event[4] in group1:
-        #     event[4] = 'WT'
-        # elif event[4] in group2:
-        #     event[4] = 'HET'
-        # else:
-        #     event[4] = None
-
-        #print(event)
         if event not in all_events_group:
             all_events_group.append(event)
-    #print(all_events_group)
+    # print(all_events_group)
 
     for row in all_events_group:
         time_list_group.append([])
         total_time_list_group.append(0)
         counter_list_group.append(0)
 
-
-
     for row in results:
         if (row[1], row[5], row[6], row[7], row[8]) not in all_events:
             pass
         else:
 
-            #if row[5] in group1 and row[6] == None:
+            # if row[5] in group1 and row[6] == None:
 
-
-            for i in range(5,9):
+            for i in range(5, 9):
                 if row[i] in group1:
                     row[i] = 'WT'
                 elif row[i] in group2:
@@ -299,16 +311,15 @@ def calc_avg_count_total_group(all_events, results, info_animals):
 
             eventName = [row[1], row[5], row[6], row[7], row[8]]
             counter_list_group[all_events_group.index(eventName)] += 1
-            if row[4] - row[3] == 0:
-                total_time_list_group[all_events_group.index(eventName)] += 1
+            # if row[4] - row[3] == 0:
+            #     total_time_list_group[all_events_group.index(eventName)] += 1
+            #
+            #     time_list_group[all_events_group.index(eventName)].append(1)
+            #
+            # else:
+            time_list_group[all_events_group.index(eventName)].append(row[4] - row[3] + 1)
 
-                time_list_group[all_events_group.index(eventName)].append(1)
-
-            else:
-                time_list_group[all_events_group.index(eventName)].append(row[4] - row[3])
-
-                total_time_list_group[all_events_group.index(eventName)] += row[4] - row[3]
-
+            total_time_list_group[all_events_group.index(eventName)] += row[4] - row[3] + 1
 
     avg_list_group = []
     sd_list_group = []
@@ -320,7 +331,6 @@ def calc_avg_count_total_group(all_events, results, info_animals):
         except:
             sd_list_group.append(0)
 
-
         if counter_list_group[i] != 0:
 
             avg_list_group.append(total_time_list_group[i] / counter_list_group[i])
@@ -328,21 +338,37 @@ def calc_avg_count_total_group(all_events, results, info_animals):
         else:
             avg_list_group.append(0)
 
+    # print(total_time_list_group)
 
-    #print(total_time_list_group)
-
-    #print(len(total_time_list_group))
-
+    # print(len(total_time_list_group))
 
     # counter_list_group = [counter_list_group1, counter_list_group2]
     # total_time_list_group = [total_time_list_group1, total_time_list_group2]
     # avg_list_group = [avg_list_group1, avg_list_group2]
     # sd_list_group = [sd_list_group1, sd_list_group2]
 
-    return counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group
+    print(counter_list_group)
+    print(total_time_list_group)
+    print(avg_list_group)
+    print(sd_list_group)
+    print(all_events_group)
+    return counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group, group1,group2
 
 
 def calc_avg_count_total(all_events, results):
+    """
+    This functions takes as input:
+    A list of all the events present in all the databases.
+    A lists of the rows from the database.
+
+    It returns the information:
+    Where for each list the index corresponds with the all events list.
+
+    counter_list: A list with the total count for each event.
+    total_time_list: A list with the total time in frames for each event.
+    avg_list: The average time in frames spent during an event.
+    sd_list: The standard deviation in frames for each event
+    """
     total_time_list = []
     counter_list = []
     time_list = []
@@ -358,15 +384,15 @@ def calc_avg_count_total(all_events, results):
         else:
             counter_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += 1
 
-            if row[4] - row[3] == 0:
-                total_time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += 1
+            # if row[4] - row[3] == 0:
+            #     total_time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += 1
+            #
+            #     time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))].append(1)
+            #
+            # else:
+            time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))].append(row[4] - row[3] + 1)
 
-                time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))].append(1)
-
-            else:
-                time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))].append(row[4] - row[3])
-
-                total_time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += row[4] - row[3]
+            total_time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += row[4] - row[3] + 1
 
     i = 0
     avg_list = []

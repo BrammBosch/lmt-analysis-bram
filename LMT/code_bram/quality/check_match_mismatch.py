@@ -3,11 +3,14 @@ from scripts.tools.select_db import connection_match
 
 
 def match_mismatch_main(table):
+    """
+    If this function is called with a table as input it returns the amount of matches, mismatches and a list of all
+    durations in frames between matches and mismatches
+    """
     result = connection_match(table)
 
     count_match, count_mismatch = count_match_mismatch(result)
     time_mismatch_last_match = time_mismatch_match_no_double(result)
-    # print(time_mismatch_last_match)
     # print('The amount of matches for mice 1,2,3 and 4 are: ' + str(count_match))
     # print('The amount of mismatches for mice 1,2,3 and 4 are: ' + str(count_mismatch))
 
@@ -15,12 +18,14 @@ def match_mismatch_main(table):
 
 
 def count_match_mismatch(result):
-    match_and_mismatch = []
+    """
+    This function takes the database rows as input and counts each match and mismatch for each animal.
+    The function returns 2 lists with the counts as values where the animal is the index of the list.
+    """
     count_match = [0, 0, 0, 0]
     count_mismatch = [0, 0, 0, 0]
     for row in result:
         if row[1] == 'RFID MATCH':
-            match_and_mismatch.append(row)
             if row[5] == 1:
                 count_match[0] += 1
             elif row[5] == 2:
@@ -38,51 +43,17 @@ def count_match_mismatch(result):
                 count_mismatch[2] += 1
             else:
                 count_mismatch[3] += 1
-            match_and_mismatch.append(row)
 
     return count_match, count_mismatch
 
 
-def time_mismatch_match_doubles(result):
-    time_mismatch_last_match = [[], [], [], []]
-    tempMatch1 = 0
-    tempMatch2 = 0
-    tempMatch3 = 0
-    tempMatch4 = 0
-    for row in result:
-        if row[1] == 'RFID MATCH':
-            if row[5] == 1:
-                tempMatch1 = row[3]
-
-            elif row[5] == 2:
-                tempMatch2 = row[3]
-
-            elif row[5] == 3:
-                tempMatch3 = row[3]
-
-            else:
-                tempMatch4 = row[3]
-        if row[1] == 'RFID MISMATCH':
-            if row[5] == 1:
-                # print('time between is: ' + str(row[3]) + str(' ') + str(tempMatch1) + ' for mouse 1')
-                time_mismatch_last_match[0].append(row[3] - tempMatch1)
-
-            elif row[5] == 2:
-                # print('time between is: ' + str(row[3] - tempMatch2) + ' for mouse 2')
-                time_mismatch_last_match[1].append(row[3] - tempMatch2)
-
-            elif row[5] == 3:
-                # print('time between is: ' + str(row[3] - tempMatch3) + ' for mouse 3')
-                time_mismatch_last_match[2].append(row[3] - tempMatch3)
-
-            else:
-                # print('time between is: ' + str(row[3] - tempMatch4) + ' for mouse 4')
-                time_mismatch_last_match[3].append(row[3] - tempMatch4)
-
-    return time_mismatch_last_match
-
 
 def time_mismatch_match_no_double(result):
+    """
+    This function takes as input all the rows of a database
+    and returns a 2d list where the animal is the index of the first list.
+    The nested lists are all the frame counts between a mismatch and the last match.
+    """
     time_mismatch_last_match = [[], [], [], []]
     tempMatch1 = 0
     tempMatch2 = 0
@@ -104,8 +75,6 @@ def time_mismatch_match_no_double(result):
         if row[1] == 'RFID MISMATCH':
 
             if row[5] == 1:
-                print('time between is: ' + str(row[3]) + str(' ') + str(tempMatch1) + ' for mouse 1')
-                print(row[3]-tempMatch1)
 
                 last_match[0].append(tempMatch1)
                 time_mismatch_last_match[0].append(row[3] - tempMatch1)
@@ -121,17 +90,6 @@ def time_mismatch_match_no_double(result):
             elif row[5] == 4:
                 last_match[3].append(tempMatch4)
                 time_mismatch_last_match[3].append(row[3] - tempMatch4)
-
-        # if row[5] == 1:
-        #     #print(row)
-        #     tempMatch1 = row[3]
-        # elif row[5] == 2:
-        #     tempMatch2 = row[3]
-        # elif row[5] == 3:
-        #     tempMatch3 = row[3]
-        # else:
-        #     tempMatch4 = row[3]
-
 
     list_same = [[], [], [], []]
 

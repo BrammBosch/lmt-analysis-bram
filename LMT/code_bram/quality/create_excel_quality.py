@@ -1,26 +1,38 @@
+import ntpath
+import os
+
+import numpy as np
+import xlsxwriter
+from scipy import stats
+
 from code_bram.SVM.check_event_count import check_event_count
 from code_bram.quality.check_match_mismatch import match_mismatch_main
-from lmtanalysis.FileUtil import getFilesToProcess
-import xlsxwriter
-import os
-import ntpath
-from code_bram.quality.visualize import plots
 from code_bram.quality.visualize import boxplot
+from code_bram.quality.visualize import plots
+from lmtanalysis.FileUtil import getFilesToProcess
 from scripts.tools.find_time_frames import find_start_end_file
-from scripts.tools.select_db import connection_rfid, connection_unique_events
 from scripts.tools.select_db import connection_first_match
-from scipy import stats
-import numpy as np
+from scripts.tools.select_db import connection_rfid, connection_unique_events
 
 
 def create_excel():
+    """
+    This function aks for a database or a folder of databases and returns an excel file with the information:
+    - When the first match happened in the database for each mouse.
+    - The total amount of matches for each mouse.
+    - The total amount of mismatches for each mouse.
+    - Percentage mismatch per match.
+    - The average time between a match and mismatch.
+    - The percentage of total time spent in mismatch time.
+
+    """
     list_excluded_events = ['RFID ASSIGN ANONYMOUS TRACK',
-                          'RFID MATCH',
-                          'RFID MISMATCH',
-                          'MACHINE LEARNING ASSOCIATION',
-                          'Detection',
-                          'Head detected'
-                          ]
+                            'RFID MATCH',
+                            'RFID MISMATCH',
+                            'MACHINE LEARNING ASSOCIATION',
+                            'Detection',
+                            'Head detected'
+                            ]
     files = getFilesToProcess()
     path = os.path.dirname(os.path.abspath(files[0]))
 
@@ -33,8 +45,21 @@ def create_excel():
 
     all_mismatch_data = []
     all_rfid_list = []
-    all_events = check_events(files)
-    print(all_events)
+    list_excluded_events = ['RFID ASSIGN ANONYMOUS TRACK',
+                            'RFID MATCH',
+                            'RFID MISMATCH',
+                            'MACHINE LEARNING ASSOCIATION',
+                            'Detection',
+                            'Head detected'
+                            ]
+    all_events = check_event_count(files, list_excluded_events)
+    # print(all_events)
+
+    files = list(files)
+    print(files)
+    files.sort(key=lambda x: (
+    x.split('\\')[1].split('_')[0][4:], x.split('\\')[1].split('_')[0][2:4], x.split('\\')[1].split('_')[0][0:2]))
+
     for file in files:
 
         rfid_list = connection_rfid(file)
@@ -120,7 +145,7 @@ def create_excel():
         imgdata = plots(file, count_match, count_mismatch, time_mismatch_last_match)
 
         x += 5
-
+        print(file)
         start_frame, end_frame = find_start_end_file(file)
         total_time = end_frame - start_frame
 
@@ -132,10 +157,10 @@ def create_excel():
         worksheet.write(x + 1, y + 1, rfid_list[1])
         worksheet.write(x + 1, y + 2, rfid_list[2])
         worksheet.write(x + 1, y + 3, rfid_list[3])
-        worksheet.write(x + 2, y + 0, (sum(time_mismatch_last_match[0])/total_time)*100)
-        worksheet.write(x + 2, y + 1, (sum(time_mismatch_last_match[1])/total_time)*100)
-        worksheet.write(x + 2, y + 2, (sum(time_mismatch_last_match[2])/total_time)*100)
-        worksheet.write(x + 2, y + 3, (sum(time_mismatch_last_match[3])/total_time)*100)
+        worksheet.write(x + 2, y + 0, (sum(time_mismatch_last_match[0]) / total_time) * 100)
+        worksheet.write(x + 2, y + 1, (sum(time_mismatch_last_match[1]) / total_time) * 100)
+        worksheet.write(x + 2, y + 2, (sum(time_mismatch_last_match[2]) / total_time) * 100)
+        worksheet.write(x + 2, y + 3, (sum(time_mismatch_last_match[3]) / total_time) * 100)
 
         x += 5
 
@@ -146,22 +171,20 @@ def create_excel():
         )
 
         all_file_events = connection_unique_events(file, list_excluded_events)
-        #print(all_file_events)
-
+        # print(all_file_events)
 
         x = 0
         y = 7
-        worksheet.write(x , y, 'events missing')
-
+        worksheet.write(x, y, 'events missing')
 
         for event in all_events:
             if event not in all_file_events:
                 if event not in ['Train3', 'Train4']:
-                    worksheet.write(x+1,y, str(event))
-                    x+=1
+                    worksheet.write(x + 1, y, str(event))
+                    x += 1
 
     kruskal_result = kruskal(all_mismatch_data)
-    #print(kruskal_result)
+    # print(kruskal_result)
     all_data = [j for sub in all_mismatch_data for j in sub]
     all_data = np.array(all_data)
 
@@ -184,17 +207,6 @@ def create_excel():
     workbook.close()
 
 
-def check_events(file):
-    list_excluded_events = ['RFID ASSIGN ANONYMOUS TRACK',
-                          'RFID MATCH',
-                          'RFID MISMATCH',
-                          'MACHINE LEARNING ASSOCIATION',
-                          'Detection',
-                          'Head detected'
-                          ]
-    all_events = check_event_count(file, list_excluded_events)
-
-    return all_events
 
 def kruskal(x):
     list_ = []
