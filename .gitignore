@@ -117,3 +117,7 @@ LMT/code_bram/ml/__init__.py
 LMT/.idea/misc.xml
 LMT/.idea/LMT.iml
 LMT/code_bram/test.py
+.idea/vcs.xml
+.idea/workspace.xml
+LMT/.idea/LMT.iml
+LMT/.idea/misc.xml
