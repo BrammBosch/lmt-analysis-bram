@@ -1,5 +1,8 @@
-
 def sort_split(results):
+    """
+    This function takes a list of rows from a table and splits the rows in 4 sublists for each animal and sorts them on:
+    AnimalA, AnimalB, AnimalC, AnimalD, the event name and the startframe in that order.
+    """
     animals = [[], [], [], []]
 
     for line in results:
