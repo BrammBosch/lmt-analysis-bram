@@ -3,23 +3,24 @@ from scripts.tools.find_time_frames import find_start_end_file, find_frames
 
 
 if __name__ == '__main__':
-    # files = getFilesToProcess()
-    # for file in files:
-    #     find_start_end_file(file)
+    files = getFilesToProcess()
+    for file in files:
+        a,b  = find_start_end_file(file)
+    print(a,b)
 
 
 
     #The start and end time are based on a list where the 0 value is the hour, the 1 value the minute and the 2 value the seconds
 
-    start_time = [10,0,0]
-    end_time = [9,0,0]
+    start_time = [10,0,1]
+    end_time = [7,0,0]
+    #files = getFilesToProcess()
 
-    try:
-        start_frame, end_frame = find_frames('C:/Users/Bram/Documents/radboud/LMT_data_post/28042020_20170048001_Group2_PreTreatment.sqlite',start_time,end_time)
-        print(start_frame)
-        print(end_frame)
-    except ValueError:
-        print('The numbers are not valid for notating a time')
-
-
+    for file in files:
+        try:
+            start_frame, end_frame = find_frames(file,start_time,end_time)
+            print(start_frame)
+            print(end_frame)
+        except ValueError:
+            print('The numbers are not valid for notating a time')
 
