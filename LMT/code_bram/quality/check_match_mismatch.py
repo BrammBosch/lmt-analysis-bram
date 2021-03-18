@@ -10,7 +10,7 @@ def match_mismatch_main(table):
     result = connection_match(table)
 
     count_match, count_mismatch = count_match_mismatch(result)
-    time_mismatch_last_match = time_mismatch_match_no_double(result)
+    time_mismatch_last_match = time_mismatch_match(result)
     # print('The amount of matches for mice 1,2,3 and 4 are: ' + str(count_match))
     # print('The amount of mismatches for mice 1,2,3 and 4 are: ' + str(count_mismatch))
 
@@ -48,7 +48,7 @@ def count_match_mismatch(result):
 
 
 
-def time_mismatch_match_no_double(result):
+def time_mismatch_match(result):
     """
     This function takes as input all the rows of a database
     and returns a 2d list where the animal is the index of the first list.
@@ -76,6 +76,7 @@ def time_mismatch_match_no_double(result):
 
             if row[5] == 1:
 
+
                 last_match[0].append(tempMatch1)
                 time_mismatch_last_match[0].append(row[3] - tempMatch1)
 
@@ -92,7 +93,6 @@ def time_mismatch_match_no_double(result):
                 time_mismatch_last_match[3].append(row[3] - tempMatch4)
 
     list_same = [[], [], [], []]
-
     k = 0
     for animal in last_match:
         temp = 0

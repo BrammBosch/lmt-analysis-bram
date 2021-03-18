@@ -1,0 +1,893 @@
+file	strain	sex	group	day	exp	RFID	genotype	user1	minTime	maxTime	animal	file	ContactTotalLen	ContactNb	Oral-oralContactTotalLen	Oral-oralContactNb	Oral-genitalContactTotalLen	Oral-genitalContactNb	SidebysideContactTotalLen	SidebysideContactNb	SidebysideContact,oppositewayTotalLen	SidebysideContact,oppositewayNb	SocialapproachTotalLen	SocialapproachNb	GetawayTotalLen	GetawayNb	ApproachcontactTotalLen	ApproachcontactNb	ApproachrearTotalLen	ApproachrearNb	BreakcontactTotalLen	BreakcontactNb	FollowZoneIsolatedTotalLen	FollowZoneIsolatedNb	Train2TotalLen	Train2Nb	Group2TotalLen	Group2Nb	Group3TotalLen	Group3Nb	Group3breakTotalLen	Group3breakNb	Group3makeTotalLen	Group3makeNb	Group4breakTotalLen	Group4breakNb	Group4makeTotalLen	Group4makeNb	HuddlingTotalLen	HuddlingNb	MoveisolatedTotalLen	MoveisolatedNb	MoveincontactTotalLen	MoveincontactNb	Nest3TotalLen	Nest3Nb	Nest4TotalLen	Nest4Nb	RearingTotalLen	RearingNb	RearisolatedTotalLen	RearisolatedNb	RearincontactTotalLen	RearincontactNb	StopisolatedTotalLen	StopisolatedNb	WallJumpTotalLen	WallJumpNb	WaterZoneTotalLen	WaterZoneNb	experiment	totalDistance	
+C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	strain	sex	group	0	exp	046000238237	HET	None	50506	2534476	Animal Id:2 Name:B RFID:046000238237 Genotype:HET User1:None	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	687553	3133	192864	6164	194543	6019	239048	5428	245187	5302	599830	11725	416506	18008	524352	9610	274168	8368	57524	4089	18831	2576	453	55	270038	3371	287097	1638	1890	705	1630	589	808	209	816	206	55291	2114	245060	9034	101802	6915	129813	1252	0	0	1377995	2059	66280	4156	131092	6381	821055	6283	3053	976	48976	435	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	2589.778693653713	
+C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	strain	sex	group	0	exp	046000238236	HET	None	50506	2534476	Animal Id:4 Name:D RFID:046000238236 Genotype:HET User1:None	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	752462	2921	227554	6522	221252	6380	279721	5895	288954	5745	662110	12364	358536	17548	577100	10223	298405	8992	56554	4156	19918	2679	267	33	285513	3197	333856	1592	1641	644	1499	545	3096	180	3069	189	23921	1146	168799	7535	98916	7118	66993	1112	0	0	1349752	2100	56357	3084	136645	6481	892618	4622	2919	953	71114	442	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	2365.6927703646875	
+C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	strain	sex	group	0	exp	046000238239	WT	None	50506	2534476	Animal Id:1 Name:A RFID:046000238239 Genotype:WT User1:None	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	524534	3461	180595	5727	173130	5533	193682	4509	192670	4457	476824	10181	490973	20695	404819	8127	236306	6985	58579	4093	20990	2235	949	88	200715	3502	191458	1398	1764	657	1639	582	1174	300	1250	279	139945	4297	328431	11305	98674	6493	243732	1220	0	0	1402896	1680	94258	7124	125257	5822	883680	8638	3055	1112	97309	706	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	3069.4384818861563	
+C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	strain	sex	group	0	exp	046000238238	WT	None	50506	2534476	Animal Id:3 Name:C RFID:046000238238 Genotype:WT User1:None	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	676919	3393	217067	6403	208936	6283	254361	5428	255922	5363	613722	11621	432661	18882	528366	9653	284696	8174	61797	4474	24186	2559	919	90	244989	3581	301027	1656	2373	748	2270	669	759	164	729	144	54017	1662	236577	9131	107008	7128	120961	979	0	0	1371760	2208	95397	5707	147859	6788	805659	6468	3774	1201	66544	505	C:/Users/Bram/Documents/radboud/LMT_data_merged/12052020_20170048001_Group4_PreTreatment.sqlite	2743.354793332673	
+
+
+Statistical analysis: mixed linear models{}
+Test for the event: Contact TotalLen night 0                       Mixed Linear Model Regression Results
+====================================================================================
+Model:                     MixedLM        Dependent Variable:        value          
+No. Observations:          4              Method:                    REML           
+No. Groups:                1              Scale:                     6858591626.5000
+Min. group size:           4              Log-Likelihood:            -26.1798       
+Max. group size:           4              Converged:                 Yes            
+Mean group size:           4.0                                                      
+------------------------------------------------------------------------------------
+                   Coef.           Std.Err.        z    P>|z|    [0.025     0.975]  
+------------------------------------------------------------------------------------
+Intercept          720007.500         101429.224  7.099 0.000  521209.874 918805.126
+genotype[T.WT]    -119281.000          82816.614 -1.440 0.150 -281598.582  43036.582
+Group Var      6858591626.500 11115457830138.016                                    
+====================================================================================
+Test for the event: Oral-oral Contact TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                   MixedLM        Dependent Variable:        value         
+No. Observations:        4              Method:                    REML          
+No. Groups:              1              Scale:                     633400721.0000
+Min. group size:         4              Log-Likelihood:            -23.7976      
+Max. group size:         4              Converged:                 Yes           
+Mean group size:         4.0                                                     
+---------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z    P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept         210209.000         30823.710  6.820 0.000 149795.639 270622.361
+genotype[T.WT]    -11378.000         25167.454 -0.452 0.651 -60705.303  37949.303
+Group Var      633400721.000 3377918442515.703                                   
+=================================================================================
+Test for the event: Oral-genital Contact TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                   MixedLM        Dependent Variable:        value         
+No. Observations:        4              Method:                    REML          
+No. Groups:              1              Scale:                     498860079.2500
+Min. group size:         4              Log-Likelihood:            -23.5589      
+Max. group size:         4              Converged:                 Yes           
+Mean group size:         4.0                                                     
+---------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z    P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept         207897.500         27354.892  7.600 0.000 154282.897 261512.103
+genotype[T.WT]    -16864.500         22335.176 -0.755 0.450 -60640.640  26911.640
+Group Var      498860079.250 2997776554061.598                                   
+=================================================================================
+Test for the event: Side by side Contact TotalLen night 0                       Mixed Linear Model Regression Results
+===================================================================================
+Model:                    MixedLM        Dependent Variable:        value          
+No. Observations:         4              Method:                    REML           
+No. Groups:               1              Scale:                     1334058492.5000
+Min. group size:          4              Log-Likelihood:            -24.5425       
+Max. group size:          4              Converged:                 Yes            
+Mean group size:          4.0                                                      
+-----------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z    P>|z|    [0.025     0.975]  
+-----------------------------------------------------------------------------------
+Intercept          259384.500         44733.519  5.798 0.000  171708.413 347060.587
+genotype[T.WT]     -35363.000         36524.765 -0.968 0.333 -106950.225  36224.225
+Group Var      1334058492.500 4902271036861.820                                    
+===================================================================================
+Test for the event: Side by side Contact, opposite way TotalLen night 0                       Mixed Linear Model Regression Results
+===================================================================================
+Model:                    MixedLM        Dependent Variable:        value          
+No. Observations:         4              Method:                    REML           
+No. Groups:               1              Scale:                     1479091448.2500
+Min. group size:          4              Log-Likelihood:            -24.6457       
+Max. group size:          4              Converged:                 Yes            
+Mean group size:          4.0                                                      
+-----------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z    P>|z|    [0.025     0.975]  
+-----------------------------------------------------------------------------------
+Intercept          267070.500         47102.412  5.670 0.000  174751.470 359389.530
+genotype[T.WT]     -42774.500         38458.958 -1.112 0.266 -118152.673  32603.673
+Group Var      1479091448.250 5161873960175.931                                    
+===================================================================================
+Test for the event: Social approach TotalLen night 0                       Mixed Linear Model Regression Results
+====================================================================================
+Model:                     MixedLM        Dependent Variable:        value          
+No. Observations:          4              Method:                    REML           
+No. Groups:                1              Scale:                     5654965201.0000
+Min. group size:           4              Log-Likelihood:            -25.9868       
+Max. group size:           4              Converged:                 Yes            
+Mean group size:           4.0                                                      
+------------------------------------------------------------------------------------
+                   Coef.           Std.Err.        z    P>|z|    [0.025     0.975]  
+------------------------------------------------------------------------------------
+Intercept          630970.000          92100.205  6.851 0.000  450456.915 811483.085
+genotype[T.WT]     -85697.000          75199.503 -1.140 0.254 -233085.317  61691.317
+Group Var      5654965201.000 10093106394369.852                                    
+====================================================================================
+Test for the event: Get away TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                    MixedLM       Dependent Variable:       value          
+No. Observations:         4             Method:                   REML           
+No. Groups:               1             Scale:                    1690202561.0000
+Min. group size:          4             Log-Likelihood:           -24.7791       
+Max. group size:          4             Converged:                Yes            
+Mean group size:          4.0                                                    
+---------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z   P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept          387521.000         50351.801 7.696 0.000 288833.284 486208.716
+genotype[T.WT]      74296.000         41112.073 1.807 0.071  -6282.183 154874.183
+Group Var      1690202561.000 5517969055333.230                                  
+=================================================================================
+Test for the event: Approach contact TotalLen night 0                       Mixed Linear Model Regression Results
+===================================================================================
+Model:                    MixedLM        Dependent Variable:        value          
+No. Observations:         4              Method:                    REML           
+No. Groups:               1              Scale:                     4511553178.2500
+Min. group size:          4              Log-Likelihood:            -25.7609       
+Max. group size:          4              Converged:                 Yes            
+Mean group size:          4.0                                                      
+-----------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z    P>|z|    [0.025     0.975]  
+-----------------------------------------------------------------------------------
+Intercept          550726.000         82263.782  6.695 0.000  389491.951 711960.049
+genotype[T.WT]     -84133.500         67168.096 -1.253 0.210 -215780.550  47513.550
+Group Var      4511553178.250 9015149297139.539                                    
+===================================================================================
+Test for the event: Approach rear TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                   MixedLM        Dependent Variable:        value         
+No. Observations:        4              Method:                    REML          
+No. Groups:              1              Scale:                     732256067.2500
+Min. group size:         4              Log-Likelihood:            -23.9427      
+Max. group size:         4              Converged:                 Yes           
+Mean group size:         4.0                                                     
+---------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z    P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept         286286.500         33141.878  8.638 0.000 221329.612 351243.388
+genotype[T.WT]    -25785.500         27060.230 -0.953 0.341 -78822.577  27251.577
+Group Var      732256067.250 3631962638357.949                                   
+=================================================================================
+Test for the event: Break contact TotalLen night 0                   Mixed Linear Model Regression Results
+============================================================================
+Model:                  MixedLM       Dependent Variable:       value       
+No. Observations:       4             Method:                   REML        
+No. Groups:             1             Scale:                    2824106.0000
+Min. group size:        4             Log-Likelihood:           -18.3847    
+Max. group size:        4             Converged:                Yes         
+Mean group size:        4.0                                                 
+----------------------------------------------------------------------------
+                  Coef.        Std.Err.       z    P>|z|   [0.025    0.975] 
+----------------------------------------------------------------------------
+Intercept        57039.000         2058.193 27.713 0.000 53005.016 61072.984
+genotype[T.WT]    3149.000         1680.508  1.874 0.061  -144.734  6442.734
+Group Var      2824106.000 225553920198.739                                 
+============================================================================
+Test for the event: FollowZone Isolated TotalLen night 0                   Mixed Linear Model Regression Results
+===========================================================================
+Model:                   MixedLM      Dependent Variable:      value       
+No. Observations:        4            Method:                  REML        
+No. Groups:              1            Scale:                   2848996.2500
+Min. group size:         4            Log-Likelihood:          -18.3935    
+Max. group size:         4            Converged:               Yes         
+Mean group size:         4.0                                               
+---------------------------------------------------------------------------
+                  Coef.        Std.Err.       z   P>|z|   [0.025    0.975] 
+---------------------------------------------------------------------------
+Intercept        19374.500         2067.243 9.372 0.000 15322.778 23426.222
+genotype[T.WT]    3213.500         1687.897 1.904 0.057   -94.717  6521.717
+Group Var      2848996.250 226545699141.524                                
+===========================================================================
+Test for the event: Train2 TotalLen night 0               Mixed Linear Model Regression Results
+===================================================================
+Model:                MixedLM     Dependent Variable:     value    
+No. Observations:     4           Method:                 REML     
+No. Groups:           1           Scale:                  8874.0000
+Min. group size:      4           Log-Likelihood:         -12.6219 
+Max. group size:      4           Converged:              Yes      
+Mean group size:      4.0                                          
+-------------------------------------------------------------------
+                Coef.       Std.Err.      z   P>|z|  [0.025  0.975]
+-------------------------------------------------------------------
+Intercept       360.000         115.373 3.120 0.002 133.872 586.128
+genotype[T.WT]  574.000          94.202 6.093 0.000 389.368 758.632
+Group Var      8874.000 12643566441.995                            
+===================================================================
+Test for the event: Group2 TotalLen night 0                      Mixed Linear Model Regression Results
+==================================================================================
+Model:                    MixedLM        Dependent Variable:        value         
+No. Observations:         4              Method:                    REML          
+No. Groups:               1              Scale:                     549915675.2500
+Min. group size:          4              Log-Likelihood:            -23.6563      
+Max. group size:          4              Converged:                 Yes           
+Mean group size:          4.0                                                     
+----------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z    P>|z|    [0.025     0.975]  
+----------------------------------------------------------------------------------
+Intercept         277775.500         28720.611  9.672 0.000  221484.136 334066.864
+genotype[T.WT]    -54923.500         23450.281 -2.342 0.019 -100885.206  -8961.794
+Group Var      549915675.250 3147443426110.303                                    
+==================================================================================
+Test for the event: Group3 TotalLen night 0                       Mixed Linear Model Regression Results
+===================================================================================
+Model:                    MixedLM        Dependent Variable:        value          
+No. Observations:         4              Method:                    REML           
+No. Groups:               1              Scale:                     3547942460.5000
+Min. group size:          4              Log-Likelihood:            -25.5207       
+Max. group size:          4              Converged:                 Yes            
+Mean group size:          4.0                                                      
+-----------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z    P>|z|    [0.025     0.975]  
+-----------------------------------------------------------------------------------
+Intercept          310476.500         72951.447  4.256 0.000  167494.290 453458.710
+genotype[T.WT]     -64234.000         59564.607 -1.078 0.281 -180978.485  52510.485
+Group Var      3547942460.500 7994626280956.473                                    
+===================================================================================
+Test for the event: Group 3 break TotalLen night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                  MixedLM     Dependent Variable:     value      
+No. Observations:       4           Method:                 REML       
+No. Groups:             1           Scale:                  108220.5000
+Min. group size:        4           Log-Likelihood:         -15.1230   
+Max. group size:        4           Converged:              Yes        
+Mean group size:        4.0                                            
+-----------------------------------------------------------------------
+                 Coef.        Std.Err.      z   P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept        1765.500         402.903 4.382 0.000  975.825 2555.175
+genotype[T.WT]    303.000         328.969 0.921 0.357 -341.767  947.767
+Group Var      108220.500 44153450758.638                              
+=======================================================================
+Test for the event: Group 3 make TotalLen night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                  MixedLM     Dependent Variable:     value      
+No. Observations:       4           Method:                 REML       
+No. Groups:             1           Scale:                  103830.5000
+Min. group size:        4           Log-Likelihood:         -15.0815   
+Max. group size:        4           Converged:              Yes        
+Mean group size:        4.0                                            
+-----------------------------------------------------------------------
+                 Coef.        Std.Err.      z   P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept        1564.500         394.646 3.964 0.000  791.007 2337.993
+genotype[T.WT]    390.000         322.227 1.210 0.226 -241.554 1021.554
+Group Var      103830.500 43248630087.425                              
+=======================================================================
+Test for the event: Group 4 break TotalLen night 0                   Mixed Linear Model Regression Results
+===========================================================================
+Model:                   MixedLM      Dependent Variable:      value       
+No. Observations:        4            Method:                  REML        
+No. Groups:              1            Scale:                   1351792.2500
+Min. group size:         4            Log-Likelihood:          -17.6480    
+Max. group size:         4            Converged:               Yes         
+Mean group size:         4.0                                               
+---------------------------------------------------------------------------
+                  Coef.        Std.Err.       z    P>|z|   [0.025   0.975] 
+---------------------------------------------------------------------------
+Intercept         1952.000         1423.969  1.371 0.170  -838.928 4742.928
+genotype[T.WT]    -985.500         1162.666 -0.848 0.397 -3264.284 1293.284
+Group Var      1351792.250 156050390238.311                                
+===========================================================================
+Test for the event: Group 4 make TotalLen night 0                   Mixed Linear Model Regression Results
+===========================================================================
+Model:                   MixedLM      Dependent Variable:      value       
+No. Observations:        4            Method:                  REML        
+No. Groups:              1            Scale:                   1336862.5000
+Min. group size:         4            Log-Likelihood:          -17.6369    
+Max. group size:         4            Converged:               Yes         
+Mean group size:         4.0                                               
+---------------------------------------------------------------------------
+                  Coef.        Std.Err.       z    P>|z|   [0.025   0.975] 
+---------------------------------------------------------------------------
+Intercept         1942.500         1416.084  1.372 0.170  -832.974 4717.974
+genotype[T.WT]    -953.000         1156.228 -0.824 0.410 -3219.165 1313.165
+Group Var      1336862.500 155186255278.560                                
+===========================================================================
+Test for the event: Huddling TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                    MixedLM       Dependent Variable:       value          
+No. Observations:         4             Method:                   REML           
+No. Groups:               1             Scale:                    2091924521.0000
+Min. group size:          4             Log-Likelihood:           -24.9924       
+Max. group size:          4             Converged:                Yes            
+Mean group size:          4.0                                                    
+---------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z   P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept           39606.000         56016.844 0.707 0.480 -70184.996 149396.996
+genotype[T.WT]      57375.000         45737.561 1.254 0.210 -32268.973 147018.973
+Group Var      2091924521.000 6138791572699.891                                  
+=================================================================================
+Test for the event: Move isolated TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                    MixedLM       Dependent Variable:       value          
+No. Observations:         4             Method:                   REML           
+No. Groups:               1             Scale:                    3563224359.2500
+Min. group size:          4             Log-Likelihood:           -25.5250       
+Max. group size:          4             Converged:                Yes            
+Mean group size:          4.0                                                    
+---------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z   P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept          206929.500         73108.389 2.830 0.005  63639.691 350219.309
+genotype[T.WT]      75574.500         59692.750 1.266 0.205 -41421.139 192570.139
+Group Var      3563224359.250 8011825234378.492                                  
+=================================================================================
+Test for the event: Move in contact TotalLen night 0                    Mixed Linear Model Regression Results
+==============================================================================
+Model:                   MixedLM       Dependent Variable:       value        
+No. Observations:        4             Method:                   REML         
+No. Groups:              1             Scale:                    19446138.0000
+Min. group size:         4             Log-Likelihood:           -20.3142     
+Max. group size:         4             Converged:                Yes          
+Mean group size:         4.0                                                  
+------------------------------------------------------------------------------
+                  Coef.         Std.Err.       z    P>|z|   [0.025    0.975]  
+------------------------------------------------------------------------------
+Intercept        100359.000         5400.852 18.582 0.000 89773.524 110944.476
+genotype[T.WT]     2482.000         4409.778  0.563 0.574 -6161.005  11125.005
+Group Var      19446138.000 591870323130.785                                  
+==============================================================================
+Test for the event: Nest3 TotalLen night 0                      Mixed Linear Model Regression Results
+=================================================================================
+Model:                    MixedLM       Dependent Variable:       value          
+No. Observations:         4             Method:                   REML           
+No. Groups:               1             Scale:                    4754767710.2500
+Min. group size:          4             Log-Likelihood:           -25.8134       
+Max. group size:          4             Converged:                Yes            
+Mean group size:          4.0                                                    
+---------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z   P>|z|   [0.025     0.975]  
+---------------------------------------------------------------------------------
+Intercept           98403.000         84452.067 1.165 0.244 -67120.009 263926.009
+genotype[T.WT]      83943.500         68954.824 1.217 0.223 -51205.471 219092.471
+Group Var      4754767710.250 9254959770439.930                                  
+=================================================================================
+Test for the event: Nest4 TotalLen night 0       Mixed Linear Model Regression Results
+====================================================
+Model:            MixedLM Dependent Variable: value 
+No. Observations: 4       Method:             REML  
+No. Groups:       1       Scale:              0.0000
+Min. group size:  4       Log-Likelihood:     inf   
+Max. group size:  4       Converged:          No    
+Mean group size:  4.0                               
+----------------------------------------------------
+                Coef. Std.Err. z P>|z| [0.025 0.975]
+----------------------------------------------------
+Intercept       0.000                               
+genotype[T.WT]  0.000                               
+Group Var       0.000                               
+====================================================
+Test for the event: Rearing TotalLen night 0                       Mixed Linear Model Regression Results
+===================================================================================
+Model:                     MixedLM        Dependent Variable:        value         
+No. Observations:          4              Method:                    REML          
+No. Groups:                1              Scale:                     441779386.2500
+Min. group size:           4              Log-Likelihood:            -23.4373      
+Max. group size:           4              Converged:                 Yes           
+Mean group size:           4.0                                                     
+-----------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z    P>|z|    [0.025      0.975]  
+-----------------------------------------------------------------------------------
+Intercept        1363873.500         25742.360 52.982 0.000 1313419.402 1414327.598
+genotype[T.WT]     23454.500         21018.549  1.116 0.264  -17741.098   64650.098
+Group Var      441779386.250 2821061842142.273                                     
+===================================================================================
+Test for the event: Rear isolated TotalLen night 0                    Mixed Linear Model Regression Results
+=============================================================================
+Model:                  MixedLM       Dependent Variable:       value        
+No. Observations:       4             Method:                   REML         
+No. Groups:             1             Scale:                    24940812.5000
+Min. group size:        4             Log-Likelihood:           -20.5630     
+Max. group size:        4             Converged:                Yes          
+Mean group size:        4.0                                                  
+-----------------------------------------------------------------------------
+                  Coef.         Std.Err.       z    P>|z|   [0.025    0.975] 
+-----------------------------------------------------------------------------
+Intercept         61318.500         6116.471 10.025 0.000 49330.437 73306.563
+genotype[T.WT]    33509.000         4994.078  6.710 0.000 23720.787 43297.213
+Group Var      24940812.500 670293768078.797                                 
+=============================================================================
+Test for the event: Rear in contact TotalLen night 0                     Mixed Linear Model Regression Results
+================================================================================
+Model:                    MixedLM       Dependent Variable:       value         
+No. Observations:         4             Method:                   REML          
+No. Groups:               1             Scale:                    135421553.2500
+Min. group size:          4             Log-Likelihood:           -22.2549      
+Max. group size:          4             Converged:                Yes           
+Mean group size:          4.0                                                   
+--------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z   P>|z|   [0.025     0.975]  
+--------------------------------------------------------------------------------
+Intercept         133868.500         14252.450 9.393 0.000 105934.211 161802.789
+genotype[T.WT]      2689.500         11637.077 0.231 0.817 -20118.751  25497.751
+Group Var      135421553.250 1561901990208.904                                  
+================================================================================
+Test for the event: Stop isolated TotalLen night 0                       Mixed Linear Model Regression Results
+===================================================================================
+Model:                    MixedLM        Dependent Variable:        value          
+No. Observations:         4              Method:                    REML           
+No. Groups:               1              Scale:                     2802134852.5000
+Min. group size:          4              Log-Likelihood:            -25.2847       
+Max. group size:          4              Converged:                 Yes            
+Mean group size:          4.0                                                      
+-----------------------------------------------------------------------------------
+                   Coef.           Std.Err.       z    P>|z|    [0.025     0.975]  
+-----------------------------------------------------------------------------------
+Intercept          856836.500         64832.108 13.216 0.000  729767.903 983905.097
+genotype[T.WT]     -12167.000         52935.195 -0.230 0.818 -115918.075  91584.075
+Group Var      2802134852.500 7104841582346.893                                    
+===================================================================================
+Test for the event: WallJump TotalLen night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                  MixedLM     Dependent Variable:     value      
+No. Observations:       4           Method:                 REML       
+No. Groups:             1           Scale:                  133729.2500
+Min. group size:        4           Log-Likelihood:         -15.3346   
+Max. group size:        4           Converged:              Yes        
+Mean group size:        4.0                                            
+-----------------------------------------------------------------------
+                 Coef.        Std.Err.      z   P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept        2986.000         447.877 6.667 0.000 2108.177 3863.823
+genotype[T.WT]    428.500         365.690 1.172 0.241 -288.239 1145.239
+Group Var      133729.250 49082094513.929                              
+=======================================================================
+Test for the event: Water Zone TotalLen night 0                     Mixed Linear Model Regression Results
+================================================================================
+Model:                    MixedLM       Dependent Variable:       value         
+No. Observations:         4             Method:                   REML          
+No. Groups:               1             Scale:                    359144067.2500
+Min. group size:          4             Log-Likelihood:           -23.2303      
+Max. group size:          4             Converged:                Yes           
+Mean group size:          4.0                                                   
+--------------------------------------------------------------------------------
+                   Coef.          Std.Err.       z   P>|z|   [0.025     0.975]  
+--------------------------------------------------------------------------------
+Intercept          60045.000         23210.259 2.587 0.010  14553.729 105536.271
+genotype[T.WT]     21881.500         18951.097 1.155 0.248 -15261.967  59024.967
+Group Var      359144067.250 2543573146138.680                                  
+================================================================================
+Test for the event: Contact Nb night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   12392.0000
+Min. group size:       4            Log-Likelihood:          -12.9558  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       3027.000         136.338 22.202 0.000 2759.783 3294.217
+genotype[T.WT]   400.000         111.319  3.593 0.000  181.818  618.182
+Group Var      12392.000 14941031635.393                               
+=======================================================================
+Test for the event: Oral-oral Contact Nb night 0                  Mixed Linear Model Regression Results
+=========================================================================
+Model:                  MixedLM      Dependent Variable:      value      
+No. Observations:       4            Method:                  REML       
+No. Groups:             1            Scale:                   146285.0000
+Min. group size:        4            Log-Likelihood:          -15.4243   
+Max. group size:        4            Converged:               Yes        
+Mean group size:        4.0                                              
+-------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|   [0.025   0.975] 
+-------------------------------------------------------------------------
+Intercept        6343.000         468.431 13.541 0.000  5424.892 7261.108
+genotype[T.WT]   -278.000         382.472 -0.727 0.467 -1027.632  471.632
+Group Var      146285.000 51334552554.404                                
+=========================================================================
+Test for the event: Oral-genital Contact Nb night 0                  Mixed Linear Model Regression Results
+=========================================================================
+Model:                  MixedLM      Dependent Variable:      value      
+No. Observations:       4            Method:                  REML       
+No. Groups:             1            Scale:                   173205.2500
+Min. group size:        4            Log-Likelihood:          -15.5933   
+Max. group size:        4            Converged:               Yes        
+Mean group size:        4.0                                              
+-------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|   [0.025   0.975] 
+-------------------------------------------------------------------------
+Intercept        6199.500         509.714 12.163 0.000  5200.480 7198.520
+genotype[T.WT]   -291.500         416.179 -0.700 0.484 -1107.197  524.197
+Group Var      173205.250 55858646577.186                                
+=========================================================================
+Test for the event: Side by side Contact Nb night 0                  Mixed Linear Model Regression Results
+=========================================================================
+Model:                  MixedLM      Dependent Variable:      value      
+No. Observations:       4            Method:                  REML       
+No. Groups:             1            Scale:                   265662.5000
+Min. group size:        4            Log-Likelihood:          -16.0210   
+Max. group size:        4            Converged:               Yes        
+Mean group size:        4.0                                              
+-------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|   [0.025   0.975] 
+-------------------------------------------------------------------------
+Intercept        5661.500         631.264  8.969 0.000  4424.246 6898.754
+genotype[T.WT]   -693.000         515.425 -1.345 0.179 -1703.214  317.214
+Group Var      265662.500 69179116386.561                                
+=========================================================================
+Test for the event: Side by side Contact, opposite way Nb night 0                  Mixed Linear Model Regression Results
+=========================================================================
+Model:                  MixedLM      Dependent Variable:      value      
+No. Observations:       4            Method:                  REML       
+No. Groups:             1            Scale:                   254271.2500
+Min. group size:        4            Log-Likelihood:          -15.9772   
+Max. group size:        4            Converged:               Yes        
+Mean group size:        4.0                                              
+-------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|   [0.025   0.975] 
+-------------------------------------------------------------------------
+Intercept        5523.500         617.581  8.944 0.000  4313.063 6733.937
+genotype[T.WT]   -613.500         504.253 -1.217 0.224 -1601.818  374.818
+Group Var      254271.250 67679713555.870                                
+=========================================================================
+Test for the event: Social approach Nb night 0                   Mixed Linear Model Regression Results
+===========================================================================
+Model:                  MixedLM       Dependent Variable:       value      
+No. Observations:       4             Method:                   REML       
+No. Groups:             1             Scale:                    620480.2500
+Min. group size:        4             Log-Likelihood:           -16.8693   
+Max. group size:        4             Converged:                Yes        
+Mean group size:        4.0                                                
+---------------------------------------------------------------------------
+                 Coef.        Std.Err.       z    P>|z|   [0.025    0.975] 
+---------------------------------------------------------------------------
+Intercept       12044.500          964.739 12.485 0.000 10153.647 13935.353
+genotype[T.WT]  -1143.500          787.706 -1.452 0.147 -2687.375   400.375
+Group Var      620480.250 105724067698.720                                 
+===========================================================================
+Test for the event: Get away Nb night 0                   Mixed Linear Model Regression Results
+===========================================================================
+Model:                  MixedLM       Dependent Variable:       value      
+No. Observations:       4             Method:                   REML       
+No. Groups:             1             Scale:                    874642.2500
+Min. group size:        4             Log-Likelihood:           -17.2126   
+Max. group size:        4             Converged:                Yes        
+Mean group size:        4.0                                                
+---------------------------------------------------------------------------
+                 Coef.        Std.Err.       z    P>|z|   [0.025    0.975] 
+---------------------------------------------------------------------------
+Intercept       17778.000         1145.410 15.521 0.000 15533.038 20022.962
+genotype[T.WT]   2010.500          935.223  2.150 0.032   177.496  3843.504
+Group Var      874642.250 125523519886.633                                 
+===========================================================================
+Test for the event: Approach contact Nb night 0                   Mixed Linear Model Regression Results
+===========================================================================
+Model:                  MixedLM       Dependent Variable:       value      
+No. Observations:       4             Method:                   REML       
+No. Groups:             1             Scale:                    676111.2500
+Min. group size:        4             Log-Likelihood:           -16.9551   
+Max. group size:        4             Converged:                Yes        
+Mean group size:        4.0                                                
+---------------------------------------------------------------------------
+                 Coef.        Std.Err.       z    P>|z|   [0.025    0.975] 
+---------------------------------------------------------------------------
+Intercept        9916.500         1007.059  9.847 0.000  7942.702 11890.298
+genotype[T.WT]  -1026.500          822.260 -1.248 0.212 -2638.100   585.100
+Group Var      676111.250 110361848001.218                                 
+===========================================================================
+Test for the event: Approach rear Nb night 0                  Mixed Linear Model Regression Results
+==========================================================================
+Model:                   MixedLM      Dependent Variable:      value      
+No. Observations:        4            Method:                  REML       
+No. Groups:              1            Scale:                   450774.2500
+Min. group size:         4            Log-Likelihood:          -16.5497   
+Max. group size:         4            Converged:               Yes        
+Mean group size:         4.0                                              
+--------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|   [0.025    0.975] 
+--------------------------------------------------------------------------
+Intercept        8680.000         822.290 10.556 0.000  7068.341 10291.659
+genotype[T.WT]  -1100.500         671.397 -1.639 0.101 -2416.414   215.414
+Group Var      450774.250 90113411750.487                                 
+==========================================================================
+Test for the event: Break contact Nb night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   37412.5000
+Min. group size:       4            Log-Likelihood:          -14.0608  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       4122.500         236.894 17.402 0.000 3658.196 4586.804
+genotype[T.WT]   161.000         193.423  0.832 0.405 -218.102  540.102
+Group Var      37412.500 25960810546.591                               
+=======================================================================
+Test for the event: FollowZone Isolated Nb night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   28896.2500
+Min. group size:       4            Log-Likelihood:          -13.8025  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       2627.500         208.193 12.620 0.000 2219.449 3035.551
+genotype[T.WT]  -230.500         169.989 -1.356 0.175 -563.672  102.672
+Group Var      28896.250 22815533369.388                               
+=======================================================================
+Test for the event: Train2 Nb night 0             Mixed Linear Model Regression Results
+===============================================================
+Model:               MixedLM    Dependent Variable:    value   
+No. Observations:    4          Method:                REML    
+No. Groups:          1          Scale:                 122.0000
+Min. group size:     4          Log-Likelihood:        -8.3350 
+Max. group size:     4          Converged:             Yes     
+Mean group size:     4.0                                       
+---------------------------------------------------------------
+                Coef.     Std.Err.      z   P>|z| [0.025 0.975]
+---------------------------------------------------------------
+Intercept       44.000         13.528 3.253 0.001 17.486 70.514
+genotype[T.WT]  45.000         11.045 4.074 0.000 23.351 66.649
+Group Var      122.000 1482483260.667                          
+===============================================================
+Test for the event: Group2 Nb night 0                Mixed Linear Model Regression Results
+======================================================================
+Model:                 MixedLM      Dependent Variable:      value    
+No. Observations:      4            Method:                  REML     
+No. Groups:            1            Scale:                   9129.2500
+Min. group size:       4            Log-Likelihood:          -12.6503 
+Max. group size:       4            Converged:               Yes      
+Mean group size:       4.0                                            
+----------------------------------------------------------------------
+                Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+----------------------------------------------------------------------
+Intercept      3284.000         117.021 28.063 0.000 3054.643 3513.357
+genotype[T.WT]  257.500          95.547  2.695 0.007   70.231  444.769
+Group Var      9129.250 12824115860.079                               
+======================================================================
+Test for the event: Group3 Nb night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   17170.0000
+Min. group size:       4            Log-Likelihood:          -13.2819  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       1615.000         160.484 10.063 0.000 1300.458 1929.542
+genotype[T.WT]   -88.000         131.034 -0.672 0.502 -344.823  168.823
+Group Var      17170.000 17587132296.308                               
+=======================================================================
+Test for the event: Group 3 break Nb night 0               Mixed Linear Model Regression Results
+===================================================================
+Model:                MixedLM     Dependent Variable:     value    
+No. Observations:     4           Method:                 REML     
+No. Groups:           1           Scale:                  3000.5000
+Min. group size:      4           Log-Likelihood:         -11.5376 
+Max. group size:      4           Converged:              Yes      
+Mean group size:      4.0                                          
+-------------------------------------------------------------------
+                Coef.      Std.Err.      z    P>|z|  [0.025  0.975]
+-------------------------------------------------------------------
+Intercept       674.500         67.088 10.054 0.000 543.011 805.989
+genotype[T.WT]   28.000         54.777  0.511 0.609 -79.361 135.361
+Group Var      3000.500 7352020316.057                             
+===================================================================
+Test for the event: Group 3 make Nb night 0              Mixed Linear Model Regression Results
+==================================================================
+Model:                 MixedLM    Dependent Variable:    value    
+No. Observations:      4          Method:                REML     
+No. Groups:            1          Scale:                 2376.2500
+Min. group size:       4          Log-Likelihood:        -11.3043 
+Max. group size:       4          Converged:             Yes      
+Mean group size:       4.0                                        
+------------------------------------------------------------------
+                Coef.      Std.Err.      z   P>|z|  [0.025  0.975]
+------------------------------------------------------------------
+Intercept       567.000         59.702 9.497 0.000 449.985 684.015
+genotype[T.WT]   58.500         48.747 1.200 0.230 -37.042 154.042
+Group Var      2376.250 6542684040.832                            
+==================================================================
+Test for the event: Group 4 break Nb night 0              Mixed Linear Model Regression Results
+==================================================================
+Model:                 MixedLM    Dependent Variable:    value    
+No. Observations:      4          Method:                REML     
+No. Groups:            1          Scale:                 4834.2500
+Min. group size:       4          Log-Likelihood:        -12.0145 
+Max. group size:       4          Converged:             Yes      
+Mean group size:       4.0                                        
+------------------------------------------------------------------
+                Coef.      Std.Err.      z   P>|z|  [0.025  0.975]
+------------------------------------------------------------------
+Intercept       194.500         85.155 2.284 0.022  27.599 361.401
+genotype[T.WT]   37.500         69.529 0.539 0.590 -98.774 173.774
+Group Var      4834.250 9331993677.369                            
+==================================================================
+Test for the event: Group 4 make Nb night 0               Mixed Linear Model Regression Results
+===================================================================
+Model:                MixedLM     Dependent Variable:     value    
+No. Observations:     4           Method:                 REML     
+No. Groups:           1           Scale:                  4628.5000
+Min. group size:      4           Log-Likelihood:         -11.9710 
+Max. group size:      4           Converged:              Yes      
+Mean group size:      4.0                                          
+-------------------------------------------------------------------
+                Coef.      Std.Err.      z   P>|z|  [0.025   0.975]
+-------------------------------------------------------------------
+Intercept       197.500         83.323 2.370 0.018   34.190 360.810
+genotype[T.WT]   14.000         68.033 0.206 0.837 -119.342 147.342
+Group Var      4628.500 9131245451.807                             
+===================================================================
+Test for the event: Huddling Nb night 0                  Mixed Linear Model Regression Results
+==========================================================================
+Model:                  MixedLM      Dependent Variable:      value       
+No. Observations:       4            Method:                  REML        
+No. Groups:             1            Scale:                   1970062.2500
+Min. group size:        4            Log-Likelihood:          -18.0246    
+Max. group size:        4            Converged:               Yes         
+Mean group size:        4.0                                               
+--------------------------------------------------------------------------
+                  Coef.        Std.Err.       z   P>|z|   [0.025   0.975] 
+--------------------------------------------------------------------------
+Intercept         1630.000         1719.039 0.948 0.343 -1739.254 4999.254
+genotype[T.WT]    1349.500         1403.589 0.961 0.336 -1401.484 4100.484
+Group Var      1970062.250 188386534709.853                               
+==========================================================================
+Test for the event: Move isolated Nb night 0                  Mixed Linear Model Regression Results
+==========================================================================
+Model:                  MixedLM      Dependent Variable:      value       
+No. Observations:       4            Method:                  REML        
+No. Groups:             1            Scale:                   1743319.2500
+Min. group size:        4            Log-Likelihood:          -17.9023    
+Max. group size:        4            Converged:               Yes         
+Mean group size:        4.0                                               
+--------------------------------------------------------------------------
+                  Coef.        Std.Err.       z   P>|z|  [0.025    0.975] 
+--------------------------------------------------------------------------
+Intercept         8284.500         1617.090 5.123 0.000 5115.063 11453.937
+genotype[T.WT]    1933.500         1320.348 1.464 0.143 -654.335  4521.335
+Group Var      1743319.250 177214129512.158                               
+==========================================================================
+Test for the event: Move in contact Nb night 0                 Mixed Linear Model Regression Results
+========================================================================
+Model:                 MixedLM      Dependent Variable:      value      
+No. Observations:      4            Method:                  REML       
+No. Groups:            1            Scale:                   111108.5000
+Min. group size:       4            Log-Likelihood:          -15.1493   
+Max. group size:       4            Converged:               Yes        
+Mean group size:       4.0                                              
+------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|  [0.025   0.975] 
+------------------------------------------------------------------------
+Intercept        7016.500         408.243 17.187 0.000 6216.357 7816.643
+genotype[T.WT]   -206.000         333.329 -0.618 0.537 -859.314  447.314
+Group Var      111108.500 44738716977.515                               
+========================================================================
+Test for the event: Nest3 Nb night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   19420.2500
+Min. group size:       4            Log-Likelihood:          -13.4051  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       1182.000         170.676  6.925 0.000  847.481 1516.519
+genotype[T.WT]   -82.500         139.357 -0.592 0.554 -355.634  190.634
+Group Var      19420.250 18704120472.606                               
+=======================================================================
+Test for the event: Nest4 Nb night 0       Mixed Linear Model Regression Results
+====================================================
+Model:            MixedLM Dependent Variable: value 
+No. Observations: 4       Method:             REML  
+No. Groups:       1       Scale:              0.0000
+Min. group size:  4       Log-Likelihood:     inf   
+Max. group size:  4       Converged:          No    
+Mean group size:  4.0                               
+----------------------------------------------------
+                Coef. Std.Err. z P>|z| [0.025 0.975]
+----------------------------------------------------
+Intercept       0.000                               
+genotype[T.WT]  0.000                               
+Group Var       0.000                               
+====================================================
+Test for the event: Rearing Nb night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   70116.2500
+Min. group size:       4            Log-Likelihood:          -14.6889  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       2079.500         324.306  6.412 0.000 1443.872 2715.128
+genotype[T.WT]  -135.500         264.795 -0.512 0.609 -654.488  383.488
+Group Var      70116.250 35540147291.345                               
+=======================================================================
+Test for the event: Rear isolated Nb night 0                 Mixed Linear Model Regression Results
+========================================================================
+Model:                 MixedLM      Dependent Variable:      value      
+No. Observations:      4            Method:                  REML       
+No. Groups:            1            Scale:                   789268.2500
+Min. group size:       4            Log-Likelihood:          -17.1099   
+Max. group size:       4            Converged:               Yes        
+Mean group size:       4.0                                              
+------------------------------------------------------------------------
+                 Coef.        Std.Err.       z   P>|z|  [0.025   0.975] 
+------------------------------------------------------------------------
+Intercept        3620.000         1088.073 3.327 0.001 1487.417 5752.583
+genotype[T.WT]   2795.500          888.408 3.147 0.002 1054.253 4536.747
+Group Var      789268.250 119240063679.878                              
+========================================================================
+Test for the event: Rear in contact Nb night 0                  Mixed Linear Model Regression Results
+=========================================================================
+Model:                  MixedLM      Dependent Variable:      value      
+No. Observations:       4            Method:                  REML       
+No. Groups:             1            Scale:                   235789.0000
+Min. group size:        4            Log-Likelihood:          -15.9017   
+Max. group size:        4            Converged:               Yes        
+Mean group size:        4.0                                              
+-------------------------------------------------------------------------
+                 Coef.        Std.Err.      z    P>|z|   [0.025   0.975] 
+-------------------------------------------------------------------------
+Intercept        6431.000         594.713 10.814 0.000  5265.384 7596.616
+genotype[T.WT]   -126.000         485.581 -0.259 0.795 -1077.721  825.721
+Group Var      235789.000 65173591355.345                                
+=========================================================================
+Test for the event: Stop isolated Nb night 0                  Mixed Linear Model Regression Results
+=========================================================================
+Model:                 MixedLM      Dependent Variable:      value       
+No. Observations:      4            Method:                  REML        
+No. Groups:            1            Scale:                   1866955.2500
+Min. group size:       4            Log-Likelihood:          -17.9708    
+Max. group size:       4            Converged:               Yes         
+Mean group size:       4.0                                               
+-------------------------------------------------------------------------
+                  Coef.        Std.Err.       z   P>|z|  [0.025   0.975] 
+-------------------------------------------------------------------------
+Intercept         5452.500         1673.449 3.258 0.001 2172.599 8732.401
+genotype[T.WT]    2100.500         1366.366 1.537 0.124 -577.528 4778.528
+Group Var      1866955.250 183390501043.185                              
+=========================================================================
+Test for the event: WallJump Nb night 0               Mixed Linear Model Regression Results
+====================================================================
+Model:                 MixedLM     Dependent Variable:     value    
+No. Observations:      4           Method:                 REML     
+No. Groups:            1           Scale:                  2112.5000
+Min. group size:       4           Log-Likelihood:         -11.1867 
+Max. group size:       4           Converged:              Yes      
+Mean group size:       4.0                                          
+--------------------------------------------------------------------
+                Coef.      Std.Err.      z    P>|z|  [0.025  0.975] 
+--------------------------------------------------------------------
+Intercept       964.500         56.292 17.134 0.000 854.170 1074.830
+genotype[T.WT]  192.000         45.962  4.177 0.000 101.916  282.084
+Group Var      2112.500 6168907265.577                              
+====================================================================
+Test for the event: Water Zone Nb night 0               Mixed Linear Model Regression Results
+====================================================================
+Model:                MixedLM     Dependent Variable:     value     
+No. Observations:     4           Method:                 REML      
+No. Groups:           1           Scale:                  10112.5000
+Min. group size:      4           Log-Likelihood:         -12.7526  
+Max. group size:      4           Converged:              Yes       
+Mean group size:      4.0                                           
+--------------------------------------------------------------------
+                 Coef.       Std.Err.      z   P>|z|  [0.025  0.975]
+--------------------------------------------------------------------
+Intercept        438.500         123.161 3.560 0.000 197.108 679.892
+genotype[T.WT]   167.000         100.561 1.661 0.097 -30.096 364.096
+Group Var      10112.500 13497059121.421                            
+====================================================================
+Test for the event: totalDistance night 0                 Mixed Linear Model Regression Results
+=======================================================================
+Model:                 MixedLM      Dependent Variable:      value     
+No. Observations:      4            Method:                  REML      
+No. Groups:            1            Scale:                   39136.2682
+Min. group size:       4            Log-Likelihood:          -14.1058  
+Max. group size:       4            Converged:               Yes       
+Mean group size:       4.0                                             
+-----------------------------------------------------------------------
+                 Coef.       Std.Err.      z    P>|z|  [0.025   0.975] 
+-----------------------------------------------------------------------
+Intercept       2477.736         242.290 10.226 0.000 2002.856 2952.615
+genotype[T.WT]   428.661         197.829  2.167 0.030   40.923  816.398
+Group Var      39136.268 26552143646.718                               
+=======================================================================

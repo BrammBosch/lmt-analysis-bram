@@ -53,6 +53,7 @@ def create_excel_events():
         for animal in info:
             rfid = '"900' + animal[1] + '"'
             gen = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Genotype']
+            print(gen)
             gen = gen.iloc[0]
             animal.append(gen)
             info_animals[animal[0]] = [animal[1], animal[2]]
@@ -347,11 +348,7 @@ def calc_avg_count_total_group(all_events, results, info_animals):
     # avg_list_group = [avg_list_group1, avg_list_group2]
     # sd_list_group = [sd_list_group1, sd_list_group2]
 
-    print(counter_list_group)
-    print(total_time_list_group)
-    print(avg_list_group)
-    print(sd_list_group)
-    print(all_events_group)
+
     return counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group, group1,group2
 
 

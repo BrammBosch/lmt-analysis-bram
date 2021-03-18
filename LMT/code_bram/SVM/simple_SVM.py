@@ -1,8 +1,8 @@
 import sys
-from sklearn import svm, metrics, datasets
+
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.feature_selection import SelectKBest, chi2
+from sklearn import svm, metrics
 from sklearn.model_selection import train_test_split
 
 np.set_printoptions(threshold=sys.maxsize)
@@ -13,8 +13,6 @@ def visualise_2_features(X, y):
 
     h = .02  # step size in the mesh
 
-    # we create an instance of SVM and fit out data. We do not scale our
-    # data since we want to plot the support vectors
     C = 1.0  # SVM regularization parameter
     svc = svm.SVC(kernel='linear', C=C).fit(X, y)
     rbf_svc = svm.SVC(kernel='rbf', gamma=0.7, C=C).fit(X, y)

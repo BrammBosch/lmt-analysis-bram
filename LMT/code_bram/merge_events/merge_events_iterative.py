@@ -2,9 +2,9 @@ import sqlite3
 import time
 from multiprocessing import Process, Manager
 
+from lmtanalysis.FileUtil import getFilesToProcess
 from scripts.tools.find_time_frames import find_start_end_file
 from scripts.tools.select_db import connection
-from lmtanalysis.FileUtil import getFilesToProcess
 
 animalResults = []
 

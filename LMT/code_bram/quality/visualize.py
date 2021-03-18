@@ -1,11 +1,13 @@
-from code_bram.quality.check_match_mismatch import match_mismatch_main
 from lmtanalysis.FileUtil import getFilesToProcess
 from scripts.tools.select_db import connection_rfid
+
 from io import BytesIO
-import numpy as np
+
 import matplotlib.pyplot as plt
-from scripts.tools.read_db_info import read_database_info
-import ntpath
+
+from lmtanalysis.FileUtil import getFilesToProcess
+from scripts.tools.select_db import connection_rfid
+
 
 def plots(file,count_match, count_mismatch, time_mismatch_last_match):
     rfid_list = connection_rfid(file)
@@ -43,7 +45,6 @@ def barchart(time_mismatch_last_match,rfid_list):
 
 
     plt.show()
-
 
 if __name__ == '__main__':
     files = getFilesToProcess()

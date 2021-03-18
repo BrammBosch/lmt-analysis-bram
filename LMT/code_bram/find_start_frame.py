@@ -5,8 +5,9 @@ from scripts.tools.find_time_frames import find_start_end_file, find_frames
 if __name__ == '__main__':
     files = getFilesToProcess()
     for file in files:
-        a,b  = find_start_end_file(file)
-    print(a,b)
+
+        beginFrame,endFrame  = find_start_end_file(file)
+        print(beginFrame,endFrame)
 
 
 

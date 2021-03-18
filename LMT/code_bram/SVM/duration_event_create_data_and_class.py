@@ -4,8 +4,8 @@ from multiprocessing import Process, Manager
 
 from code_bram.SVM.check_event_count import check_event_count
 from lmtanalysis.FileUtil import getFilesToProcess
-from scripts.tools.read_db_info import link_db_excel
 from scripts.tools.find_time_frames import find_start_end_file
+from scripts.tools.read_db_info import link_db_excel
 from scripts.tools.select_db import connection
 
 allEventInformation = {}

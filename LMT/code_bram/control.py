@@ -1,8 +1,8 @@
 import numpy as np
-from sklearn import cluster, datasets
 
-from code_bram.SVM.simple_SVM import run_SVM
 from code_bram.SVM.duration_event_create_data_and_class import create_data_and_class
+from code_bram.SVM.simple_SVM import run_SVM
+
 
 def main():
     control_svm()

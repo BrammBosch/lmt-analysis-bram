@@ -1,8 +1,10 @@
+import math
+import time
+
+import matplotlib.pyplot as plt
+
 from scripts.tools.find_time_frames import find_start_end_file
 from scripts.tools.select_db import connection_location
-import time
-import matplotlib.pyplot as plt
-import math
 
 
 def location(table):

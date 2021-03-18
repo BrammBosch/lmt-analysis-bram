@@ -5,7 +5,7 @@ from multiprocessing import Process, Manager
 def check_event_count(filenames, list_excluded_events):
     """
     This function takes as input a list of all files and a list of events not to include.
-    It returns a list of
+    It returns a list of all possible events to occur for each animal
     """
 
     with Manager() as manager:
@@ -27,7 +27,7 @@ def check_event_count(filenames, list_excluded_events):
 
     for file in list_event_count:
         for event in file:
-            if event[2] == None and event[3] == None and event[4] == None and event[0] not in all_events_1:
+            if event[1] != None and event[2] == None and event[3] == None and event[4] == None and event[0] not in all_events_1:
                 all_events_1.append(event[0])
             elif event[2] != None and event[3] == None and event[4] == None and event[0] not in all_events_2:
                 all_events_2.append(event[0])
@@ -67,7 +67,7 @@ def connection_event_types(L, file, list_excluded_events):
     placeholder = '?'
     placeholders = ', '.join(placeholder for unused in list_excluded_events)
 
-    query = "select DISTINCT name, IDANIMALA, IDANIMALB, IDANIMALC,IDANIMALD  from event where NAME NOT IN (%s) limit 10000" % placeholders
+    query = "select DISTINCT name, IDANIMALA, IDANIMALB, IDANIMALC,IDANIMALD  from event where NAME NOT IN (%s)" % placeholders
     cursor.execute(query, list_excluded_events)
 
     results = cursor.fetchall()
