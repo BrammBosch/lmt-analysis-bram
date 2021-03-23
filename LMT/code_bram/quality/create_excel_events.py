@@ -38,96 +38,109 @@ def create_excel_events():
 
     overview_dataset = read_excel(path)
 
+    all_genotypes = list(overview_dataset.Genotype.unique())
+  
+    if all_genotypes == ['HET','WT']:
+        only_2_genotypes = True
+    else:
+        only_2_genotypes = False
+
+    if only_2_genotypes == True:
+        outputFile_summary = path + '\group_event_information.xlsx'
+        summary_workbook = xlsxwriter.Workbook(outputFile_summary)
+
     outputFile = path + '\event_information.xlsx'
     workbook = xlsxwriter.Workbook(outputFile)
-    outputFile_summary = path + '\group_event_information.xlsx'
-    summary_workbook = xlsxwriter.Workbook(outputFile_summary)
+
     #files.sort(key=lambda x: (x.split('\\')[1].split('_')[0][4:], x.split('\\')[1].split('_')[0][2:4], x.split('\\')[1].split('_')[0][0:2]))
+
     for file in files:
-        sheetName = ntpath.basename(file).split('_')[0]
-        summary_worksheet = summary_workbook.add_worksheet(sheetName)
-        results = connection(file, list_excluded_events)
+        if only_2_genotypes == True:
+            sheetName = ntpath.basename(file).split('_')[0]
+            summary_worksheet = summary_workbook.add_worksheet(sheetName)
+            results = connection(file, list_excluded_events)
 
-        info = db_animals(file)
-        info_animals = {}
-        for animal in info:
-            rfid = '"900' + animal[1] + '"'
-            gen = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Genotype']
-            print(gen)
-            gen = gen.iloc[0]
-            animal.append(gen)
-            info_animals[animal[0]] = [animal[1], animal[2]]
+            info = db_animals(file)
+            info_animals = {}
+            for animal in info:
+                rfid = '"900' + animal[1] + '"'
+                gen = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Genotype']
+                print(gen)
+                gen = gen.iloc[0]
+                animal.append(gen)
+                info_animals[animal[0]] = [animal[1], animal[2]]
 
-        counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group,group1, group2 = calc_avg_count_total_group(
-            all_events, results, info_animals)
+            counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group,group1, group2 = calc_avg_count_total_group(
+                all_events, results, info_animals)
 
-        summary_worksheet.write(0, 1, 'Wildtype (' + info_animals[group1[0]][0] + ', ' + info_animals[group1[1]][0] + ')')
-        summary_worksheet.write(0, 7, 'Heterozygote (' + info_animals[group2[0]][0] + ', ' + info_animals[group2[1]][0] + ')')
+            summary_worksheet.write(0, 1, 'Wildtype (' + info_animals[group1[0]][0] + ', ' + info_animals[group1[1]][0] + ')')
+            summary_worksheet.write(0, 7, 'Heterozygote (' + info_animals[group2[0]][0] + ', ' + info_animals[group2[1]][0] + ')')
 
-        summary_worksheet.write(1, 1, 'Event name')
-        summary_worksheet.write(1, 2, 'Amount')
-        summary_worksheet.write(1, 3, 'Total time')
-        summary_worksheet.write(1, 4, 'Average time')
-        summary_worksheet.write(1, 5, 'SD average time')
+            summary_worksheet.write(1, 1, 'Event name')
+            summary_worksheet.write(1, 2, 'Amount')
+            summary_worksheet.write(1, 3, 'Total time')
+            summary_worksheet.write(1, 4, 'Average time')
+            summary_worksheet.write(1, 5, 'SD average time')
 
-        summary_worksheet.write(1, 7, 'Event name')
-        summary_worksheet.write(1, 8, 'Amount')
-        summary_worksheet.write(1, 9, 'Total time')
-        summary_worksheet.write(1, 10, 'Average time')
-        summary_worksheet.write(1, 11, 'SD average time')
+            summary_worksheet.write(1, 7, 'Event name')
+            summary_worksheet.write(1, 8, 'Amount')
+            summary_worksheet.write(1, 9, 'Total time')
+            summary_worksheet.write(1, 10, 'Average time')
+            summary_worksheet.write(1, 11, 'SD average time')
 
-        summary_worksheet.set_column(1, 1, 55)
-        summary_worksheet.set_column(2, 2, 15)
-        summary_worksheet.set_column(3, 3, 15)
-        summary_worksheet.set_column(4, 4, 12)
-        summary_worksheet.set_column(5, 5, 18)
-        summary_worksheet.set_column(7, 7, 55)
-        summary_worksheet.set_column(8, 8, 15)
-        summary_worksheet.set_column(9, 9, 15)
-        summary_worksheet.set_column(10, 10, 12)
-        summary_worksheet.set_column(11, 11, 18)
+            summary_worksheet.set_column(1, 1, 55)
+            summary_worksheet.set_column(2, 2, 15)
+            summary_worksheet.set_column(3, 3, 15)
+            summary_worksheet.set_column(4, 4, 12)
+            summary_worksheet.set_column(5, 5, 18)
+            summary_worksheet.set_column(7, 7, 55)
+            summary_worksheet.set_column(8, 8, 15)
+            summary_worksheet.set_column(9, 9, 15)
+            summary_worksheet.set_column(10, 10, 12)
+            summary_worksheet.set_column(11, 11, 18)
 
-        place_het = 2
-        place_wt = 2
+            place_het = 2
+            place_wt = 2
 
-        for i in range(len(all_events_group)):
-            if all_events_group[i][1] == 'WT':
-                place = place_wt
-                name_event_place = 1
-                counter_place = 2
-                total_time_place = 3
-                avg_list_place = 4
-                sd_list_place = 5
-                place_wt += 1
-            else:
-                place = place_het
-                name_event_place = 7
-                counter_place = 8
-                total_time_place = 9
-                avg_list_place = 10
-                sd_list_place = 11
-                place_het += 1
-            if all_events_group[i][2] == None:
-                summary_worksheet.write(place, name_event_place,
-                                        str(all_events_group[i][0]))
+            for i in range(len(all_events_group)):
+                if all_events_group[i][1] == 'WT':
+                    place = place_wt
+                    name_event_place = 1
+                    counter_place = 2
+                    total_time_place = 3
+                    avg_list_place = 4
+                    sd_list_place = 5
+                    place_wt += 1
+                else:
+                    place = place_het
+                    name_event_place = 7
+                    counter_place = 8
+                    total_time_place = 9
+                    avg_list_place = 10
+                    sd_list_place = 11
+                    place_het += 1
+                if all_events_group[i][2] == None:
+                    summary_worksheet.write(place, name_event_place,
+                                            str(all_events_group[i][0]))
 
-            elif all_events_group[i][2] != None and all_events_group[i][3] == None:
-                summary_worksheet.write(place, name_event_place,
-                                        str(all_events_group[i][0]) + " " + all_events_group[i][1] + "-" +
-                                            all_events_group[i][2])
+                elif all_events_group[i][2] != None and all_events_group[i][3] == None:
+                    summary_worksheet.write(place, name_event_place,
+                                            str(all_events_group[i][0]) + " " + all_events_group[i][1] + "-" +
+                                                all_events_group[i][2])
 
-            elif all_events_group[i][2] != None and all_events_group[i][3] != None:
-                summary_worksheet.write(place, name_event_place,
-                                        str(all_events_group[i][0]) + " " + all_events_group[i][1] + "-" +
-                                            all_events_group[i][2] + "-" + all_events_group[i][3])
-            else:
-                summary_worksheet.write(place, name_event_place, str(all_events_group[i][0]))
+                elif all_events_group[i][2] != None and all_events_group[i][3] != None:
+                    summary_worksheet.write(place, name_event_place,
+                                            str(all_events_group[i][0]) + " " + all_events_group[i][1] + "-" +
+                                                all_events_group[i][2] + "-" + all_events_group[i][3])
+                else:
+                    summary_worksheet.write(place, name_event_place, str(all_events_group[i][0]))
 
-            # summary_worksheet.write(place, name_event_place, str(all_events_group[i]))
-            summary_worksheet.write(place, counter_place, counter_list_group[i])
-            summary_worksheet.write(place, total_time_place, total_time_list_group[i])
-            summary_worksheet.write(place, avg_list_place, avg_list_group[i])
-            summary_worksheet.write(place, sd_list_place, sd_list_group[i])
+                # summary_worksheet.write(place, name_event_place, str(all_events_group[i]))
+                summary_worksheet.write(place, counter_place, counter_list_group[i])
+                summary_worksheet.write(place, total_time_place, total_time_list_group[i])
+                summary_worksheet.write(place, avg_list_place, avg_list_group[i])
+                summary_worksheet.write(place, sd_list_place, sd_list_group[i])
+
 
         sheetName = ntpath.basename(file).split('_')[0]
         worksheet = workbook.add_worksheet(sheetName)
@@ -228,8 +241,9 @@ def create_excel_events():
             worksheet.write(place, sd_list_place, sd_list[i])
 
     workbook.close()
+    if only_2_genotypes == True:
 
-    summary_workbook.close()
+        summary_workbook.close()
 
 
 def calc_avg_count_total_group(all_events, results, info_animals):
@@ -407,7 +421,8 @@ def calc_avg_count_total(all_events, results):
 
         else:
             avg_list.append(0)
-
+    print(all_events)
+    print(time_list[all_events.index(('Rearing', 1, None, None, None))])
     return counter_list, total_time_list, avg_list, sd_list
 
 
