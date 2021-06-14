@@ -3,9 +3,11 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import svm, metrics
+from sklearn.feature_selection import SelectKBest, chi2
+import pandas as pd
 from sklearn.model_selection import train_test_split
 
-np.set_printoptions(threshold=sys.maxsize)
+
 
 
 def visualise_2_features(X, y):
@@ -47,6 +49,8 @@ def visualise_2_features(X, y):
 
         # Plot also the training points
         plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.coolwarm)
+        #plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.coolwarm)
+
         plt.xlabel('Sepal length')
         plt.ylabel('Sepal width')
         plt.xlim(xx.min(), xx.max())
@@ -61,12 +65,16 @@ def visualise_2_features(X, y):
 
 
 def run_SVM(data, data_class, r):
+    print('Amount of features: ' + str(len(data[0])))
+    #data = SelectKBest(chi2, k=20).fit_transform(data, data_class)
 
-    #data = SelectKBest(chi2, k=2).fit_transform(data, data_class)
 
-    run_SVM_linear(data, data_class, r)
-    run_SVM_poly(data, data_class, r)
-    run_SVM_RBF(data, data_class, r)
+
+    score_lin, coef,feature_names = run_SVM_linear(data, data_class, r)
+    score_poly = run_SVM_poly(data, data_class, r)
+    score_RBF = run_SVM_RBF(data, data_class, r)
+
+    return score_lin,score_poly,score_RBF, coef, feature_names
 
 
 def run_SVM_linear(data, data_class, r):
@@ -87,8 +95,20 @@ def run_SVM_linear(data, data_class, r):
     print('\nConfusion matrix:\n', metrics.confusion_matrix(benchmark_class, predicted))
 
 
+
+    # whatever your features are called
+    features_names = []
+    list_events = ['WallJump','Rear isolated','SAP','Move isolated', 'Stop isolated']
+    for item in list_events:
+        for event in list_events:
+            features_names.append(item + ' ' + event)
+
+    return score, abs(svc.coef_[0]), features_names
+
+
+
 def run_SVM_RBF(data, data_class, r):
-    train, benchmark, train_class, benchmark_class = train_test_split(data, data_class, test_size=0.2, random_state=r)
+    train, benchmark, train_class, benchmark_class = train_test_split(data, data_class, test_size=0.3, random_state=r)
 
     C = 1.0
     print('============================================')
@@ -104,7 +124,7 @@ def run_SVM_RBF(data, data_class, r):
     print('\nScore ', score)
     print('\nResult Overview\n', metrics.classification_report(benchmark_class, predicted))
     print('\nConfusion matrix:\n', metrics.confusion_matrix(benchmark_class, predicted))
-
+    return score
 
 def run_SVM_poly(data, data_class, r):
     train, benchmark, train_class, benchmark_class = train_test_split(data, data_class, test_size=0.2, random_state=r)
@@ -122,16 +142,16 @@ def run_SVM_poly(data, data_class, r):
     print('\nScore ', score)
     print('\nResult Overview\n', metrics.classification_report(benchmark_class, predicted))
     print('\nConfusion matrix:\n', metrics.confusion_matrix(benchmark_class, predicted))
-
+    return score
 
 if __name__ == '__main__':
     # data = np.array([[102, 102], [104, 104], [90, 90], [103, 103], [80, 80], [110, 110], [50, 50],
     #        [150, 150], [101, 101], [99, 99], [100, 100]])
 
     data = np.array(
-        [[12, 12], [11, 11], [9, 9], [7, 7], [5, 5], [16, 16], [18, 18], [21, 21], [25, 25], [40, 40], [16, 16],
-         [15, 20], [6, 15]])
+        [[12, 12,13], [11, 11,4], [9, 9,5], [7, 7,4], [5, 5,6], [16, 16,2], [18, 18,1], [21, 21,7], [25, 25,8], [40, 40,6], [16, 16,8],
+         [15, 20,67], [6, 15,67]])
 
     data_class = [0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 2, 2]
     run_SVM(data, data_class, 42)
-    visualise_2_features(data, data_class)
+    #visualise_2_features(data, data_class)

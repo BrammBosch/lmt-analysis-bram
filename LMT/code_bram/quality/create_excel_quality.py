@@ -57,8 +57,7 @@ def create_excel():
 
     files = list(files)
     print(files)
-    files.sort(key=lambda x: (
-    x.split('\\')[1].split('_')[0][4:], x.split('\\')[1].split('_')[0][2:4], x.split('\\')[1].split('_')[0][0:2]))
+    files.sort(key=lambda x: (x.split('\\')[1].split('_')[0][4:], x.split('\\')[1].split('_')[0][2:4], x.split('\\')[1].split('_')[0][0:2]))
 
     for file in files:
 
@@ -147,6 +146,7 @@ def create_excel():
         x += 5
         print(file)
         start_frame, end_frame = find_start_end_file(file)
+
         total_time = end_frame - start_frame
 
         worksheet.write(x, y, '% of total time is mismatch time')

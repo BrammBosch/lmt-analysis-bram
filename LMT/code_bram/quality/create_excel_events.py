@@ -22,6 +22,9 @@ def create_excel_events():
 
     """
 
+    # with open('output.txt', 'w') as f:
+    #     f.write('RFID' + "\t" + 'Genotype' + "\t" + 'Sex' + "\t" + 'Event_name' + "\t" + 'Values' + "\n")
+
     list_excluded_events = ['RFID ASSIGN ANONYMOUS TRACK',
                             'RFID MATCH',
                             'RFID MISMATCH',
@@ -34,16 +37,18 @@ def create_excel_events():
     path = os.path.dirname(os.path.abspath(files[0]))
     all_events = check_event_count(files, list_excluded_events)
 
-    # print(all_events)
+    #print(all_events)
 
     overview_dataset = read_excel(path)
 
     all_genotypes = list(overview_dataset.Genotype.unique())
-  
-    if all_genotypes == ['HET','WT']:
-        only_2_genotypes = True
-    else:
-        only_2_genotypes = False
+
+    # if all_genotypes == ['HET','WT']:
+    #     only_2_genotypes = True
+    # else:
+    #     only_2_genotypes = False
+
+    only_2_genotypes = True
 
     if only_2_genotypes == True:
         outputFile_summary = path + '\group_event_information.xlsx'
@@ -55,20 +60,29 @@ def create_excel_events():
     #files.sort(key=lambda x: (x.split('\\')[1].split('_')[0][4:], x.split('\\')[1].split('_')[0][2:4], x.split('\\')[1].split('_')[0][0:2]))
 
     for file in files:
+
         if only_2_genotypes == True:
+            group = ntpath.basename(file).split('_')[2]
+            group = [str(s) for s in group if s.isdigit()]
+            #group = group[0]
+            group = ''.join(group)
             sheetName = ntpath.basename(file).split('_')[0]
             summary_worksheet = summary_workbook.add_worksheet(sheetName)
             results = connection(file, list_excluded_events)
 
             info = db_animals(file)
             info_animals = {}
+            print(info)
             for animal in info:
-                rfid = '"900' + animal[1] + '"'
+                #rfid = '"900' + animal[1] + '"'
+                rfid = '"' + animal[1] + '"'
                 gen = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Genotype']
-                print(gen)
                 gen = gen.iloc[0]
+                sex = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Sex']
+                sex = sex.iloc[0]
                 animal.append(gen)
-                info_animals[animal[0]] = [animal[1], animal[2]]
+                animal.append(sex)
+                info_animals[animal[0]] = [animal[1], animal[2], animal[3]]
 
             counter_list_group, total_time_list_group, avg_list_group, sd_list_group, all_events_group,group1, group2 = calc_avg_count_total_group(
                 all_events, results, info_animals)
@@ -148,24 +162,47 @@ def create_excel_events():
         info = db_animals(file)
         info_animals = {}
         for animal in info:
-            rfid = '"900' + animal[1] + '"'
+            #rfid = '"900' + animal[1] + '"'
+            rfid = '"' + animal[1] + '"'
+
             gen = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Genotype']
             gen = gen.iloc[0]
+            sex = overview_dataset[overview_dataset['Animal RFID'] == rfid]['Sex']
+            sex = sex.iloc[0]
             animal.append(gen)
-            info_animals[animal[0]] = [animal[1], animal[2]]
-        # print(info_animals)
+            animal.append(sex)
+            info_animals[animal[0]] = [animal[1], animal[2], animal[3]]
+
+        #print(info_animals)
         results = connection(file, list_excluded_events)
 
-        counter_list, total_time_list, avg_list, sd_list = calc_avg_count_total(all_events, results)
+        counter_list, total_time_list, avg_list, sd_list, time_list = calc_avg_count_total(all_events, results)
+
+        with open('output_all_information.txt', 'a') as f:
+            i=0
+            #f.write('Recording' + '\t' 'Group' + '\t' + 'RFID' + "\t" + 'Genotype' + "\t" + 'Sex' + "\t" + 'Event_name' + "\t" + 'Values' + "\n")
+
+            while i < len(all_events):
+                # if ntpath.basename(file).split('_')[1][-1] == '2':
+                #     f.write(str(sheetName) + '\t' + 'M' + group + '\t' + info_animals[all_events[i][1]][2] + "\t" + info_animals[all_events[i][1]][0] + "\t" + info_animals[all_events[i][1]][1] + "\t" + all_events[i][0] + "\t" + str(counter_list[i]) + "\t" + str(total_time_list[i]) + "\n")
+                # else:
+                #     f.write(str(sheetName) + '\t' + '0' + group + '\t' + info_animals[all_events[i][1]][2] + "\t" + info_animals[all_events[i][1]][0] + "\t" + info_animals[all_events[i][1]][1] + "\t" + all_events[i][0] + "\t" + str(counter_list[i]) + "\t" + str(total_time_list[i]) + "\n")
+
+                for time in time_list[i]:
+                    f.write(str(sheetName) + '\t' + group + '\t' + info_animals[all_events[i][1]][0] + "\t" + info_animals[all_events[i][1]][1] + "\t" + info_animals[all_events[i][1]][2] + "\t" + all_events[i][0] +"\t" + str(time) + "\n")
+                i+=1
+
 
         k = 0
         for number in range(4):
             worksheet.write(0, k + 1, 'Number in db')
             worksheet.write(0, k + 2, 'RFID TAG')
             worksheet.write(0, k + 3, 'Genotype')
+            worksheet.write(0, k + 4, 'Sex')
             worksheet.write(1, k + 1, number + 1)
             worksheet.write(1, k + 2, info_animals[number + 1][0])
             worksheet.write(1, k + 3, info_animals[number + 1][1])
+            worksheet.write(1, k + 4, info_animals[number + 1][2])
             worksheet.write(3, k, 'Event name')
             worksheet.write(3, k + 1, 'Amount')
             worksheet.write(3, k + 2, 'Total time')
@@ -240,6 +277,8 @@ def create_excel_events():
             worksheet.write(place, avg_list_place, avg_list[i])
             worksheet.write(place, sd_list_place, sd_list[i])
 
+
+
     workbook.close()
     if only_2_genotypes == True:
 
@@ -264,7 +303,7 @@ def calc_avg_count_total_group(all_events, results, info_animals):
     group1: The id's of the wildtype group
     group2: The id's of the mutant group
     """
-    print(info_animals)
+
     all_events_group = []
     total_time_list_group = []
     counter_list_group = []
@@ -326,12 +365,7 @@ def calc_avg_count_total_group(all_events, results, info_animals):
 
             eventName = [row[1], row[5], row[6], row[7], row[8]]
             counter_list_group[all_events_group.index(eventName)] += 1
-            # if row[4] - row[3] == 0:
-            #     total_time_list_group[all_events_group.index(eventName)] += 1
-            #
-            #     time_list_group[all_events_group.index(eventName)].append(1)
-            #
-            # else:
+
             time_list_group[all_events_group.index(eventName)].append(row[4] - row[3] + 1)
 
             total_time_list_group[all_events_group.index(eventName)] += row[4] - row[3] + 1
@@ -380,6 +414,9 @@ def calc_avg_count_total(all_events, results):
     avg_list: The average time in frames spent during an event.
     sd_list: The standard deviation in frames for each event
     """
+
+    #print(all_events)
+
     total_time_list = []
     counter_list = []
     time_list = []
@@ -393,17 +430,13 @@ def calc_avg_count_total(all_events, results):
         if (row[1], row[5], row[6], row[7], row[8]) not in all_events:
             pass
         else:
+
             counter_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += 1
 
-            # if row[4] - row[3] == 0:
-            #     total_time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += 1
-            #
-            #     time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))].append(1)
-            #
-            # else:
             time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))].append(row[4] - row[3] + 1)
 
             total_time_list[all_events.index((row[1], row[5], row[6], row[7], row[8]))] += row[4] - row[3] + 1
+
 
     i = 0
     avg_list = []
@@ -421,9 +454,10 @@ def calc_avg_count_total(all_events, results):
 
         else:
             avg_list.append(0)
-    print(all_events)
-    print(time_list[all_events.index(('Rearing', 1, None, None, None))])
-    return counter_list, total_time_list, avg_list, sd_list
+    #print(all_events)
+    #print(time_list[all_events.index(('Rearing', 1, None, None, None))])
+
+    return counter_list, total_time_list, avg_list, sd_list, time_list
 
 
 if __name__ == '__main__':

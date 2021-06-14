@@ -1,0 +1,56 @@
+C:/Users/Bram/Documents/radboud/LMT_data_merged/11012021_20170048002_Group9_PreTreatment.sqlite
+Time of experiment start: 2021-01-11 09:42:54.060000
+Time of experiment end: 2021-01-12 09:14:29.990000
+Real duration of experiment: 84696.93000006676 s (2540907.9000020027 frames)
+Number of frames recorded:  2540798 frames (84693.26666666666 seconds or 1411.5544444444445 minutes or 23.525907407407406 hours or 0.9802461419753087 days)
+Number of frames omitted: 109.90000200271606 (0.004325225719618938 % of the total experiment duration)
+
+Animal 046000238244: 828502 missed detections over 2540798 frames recorded (32.607944433205624 %)
+Animal 046000238241: 940601 missed detections over 2540798 frames recorded (37.019904770076174 %)
+Animal 046000238243: 787259 missed detections over 2540798 frames recorded (30.984714251191946 %)
+Animal 046000238242: 925646 missed detections over 2540798 frames recorded (36.431310163184946 %)
+Number of RFID match for animal 046000238244: 65126 (rate: 1.424005808848681e-05 events/min)
+Number of RFID mismatch for animal 046000238244: 292 (rate: 6.384695761812714e-08 events/min)
+Number of RFID match for animal 046000238241: 33933 (rate: 7.4195849755339335e-06 events/min)
+Number of RFID mismatch for animal 046000238241: 387 (rate: 8.461908424046303e-08 events/min)
+Number of RFID match for animal 046000238243: 47288 (rate: 1.0339708670705467e-05 events/min)
+Number of RFID mismatch for animal 046000238243: 287 (rate: 6.275368779589894e-08 events/min)
+Number of RFID match for animal 046000238242: 58323 (rate: 1.2752555168363115e-05 events/min)
+Number of RFID mismatch for animal 046000238242: 305 (rate: 6.668945915592048e-08 events/min)
+
+Total number of each event type:
+Contact:	 3306
+Oral-oral Contact:	 8959
+Oral-genital Contact:	 9932
+Side by side Contact:	 6679
+Side by side Contact, opposite way:	 6449
+Social approach:	 9421
+Social escape:	 0
+Approach contact:	 6684
+Approach rear:	 9563
+Break contact:	 11472
+Get away:	 25058
+FollowZone Isolated:	 6332
+Train2:	 257
+Group2:	 4495
+Group3:	 1771
+Group 3 break:	 1885
+Group 3 make:	 1940
+Group4:	 469
+Group 4 break:	 654
+Group 4 make:	 666
+Huddling:	 5384
+Move isolated:	 18376
+Move in contact:	 12418
+Nest3:	 3780
+Nest4:	 1104
+Rearing:	 1467
+Rear isolated:	 14300
+Rear in contact:	 13731
+Stop isolated:	 2703
+WallJump:	 3799
+Water Zone:	 782
+USV seq:	 0
+
+##############################################################
+

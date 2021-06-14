@@ -23,6 +23,7 @@ def main_event_merge(table):
                           'Head detected'
                           ]  # <- All of these events are not looked at to merge
     start = time.time()
+
     start_frame, end_frame = find_start_end_file(table)
 
     results = connection(table, listExcludedEvents, start_frame, end_frame)  # <- Here the even table is pulled
